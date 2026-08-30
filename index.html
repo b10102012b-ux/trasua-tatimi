@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TaTiMi - Milk Tea & Tea & Latte</title>
+
+    <!-- LOGO MÀN HÌNH CHÍNH (APP ICON) & FAVICON -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/3ykS5Zq/tatimi-logo.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/3ykS5Zq/tatimi-logo.png">
+    <meta name="apple-mobile-web-app-title" content="TaTiMi">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <style>
         :root {
             --primary: #c88a58;
@@ -28,7 +35,6 @@
             padding-bottom: 40px; 
         }
 
-        /* ---------------- HIỆU ỨNG CHỈ NHẤP NHÁY VIỀN BÊN NGOÀI ---------------- */
         @keyframes borderLedBlink {
             0%, 100% {
                 box-shadow: 0 0 12px var(--led-color), 0 0 4px var(--led-color);
@@ -40,7 +46,6 @@
             }
         }
 
-        /* HEADER */
         .header { 
             position: relative;
             background: linear-gradient(135deg, #fceae6, #f3d1c8); 
@@ -51,13 +56,28 @@
             --led-color: #ff007f;
             border: 3px solid var(--led-color);
             animation: borderLedBlink 1.5s infinite ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .header .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
         .header h1 { 
             font-size: 28px; 
             font-weight: 900; 
             color: #8c532b; 
             letter-spacing: 1px; 
         }
+
         .header p { 
             font-size: 13px; 
             color: #8c532b; 
@@ -65,7 +85,6 @@
             font-weight: 700; 
         }
 
-        /* CONTAINER & LED BOX */
         .container { 
             padding: 15px; 
             max-width: 500px; 
@@ -82,7 +101,6 @@
             animation: borderLedBlink 1.4s infinite ease-in-out;
         }
 
-        /* MÀU VIỀN LED NHÁY TỪNG DANH MỤC */
         .card-trasua { 
             --led-color: #e91e63; 
             animation-duration: 1.2s;
@@ -128,7 +146,6 @@
             animation-duration: 1.4s;
         }
 
-        /* TIÊU ĐỀ KHUNG DANH MỤC */
         .card-title { 
             font-size: 16px; 
             font-weight: 800; 
@@ -149,7 +166,6 @@
             gap: 12px;
         }
 
-        /* CÁC Ô MÓN ĂN DẠNG THẺ (CARD) */
         .menu-item { 
             border-radius: 14px;
             padding: 12px 14px;
@@ -195,7 +211,6 @@
             font-weight: 800; 
         }
 
-        /* GIỎ HÀNG */
         .cart-item { 
             display: flex; 
             justify-content: space-between; 
@@ -234,7 +249,6 @@
             font-weight: 600; 
         }
 
-        /* Ô NHẬP THÔNG TIN */
         .input-group { 
             margin-bottom: 10px; 
         }
@@ -250,7 +264,6 @@
             border-color: var(--primary); 
         }
 
-        /* NÚT BẤM GỬI ĐƠN */
         .btn-group { 
             display: flex; 
             flex-direction: column; 
@@ -283,36 +296,32 @@
 <body>
 
     <div class="header">
-        <h1>✨ TaTiMi ✨</h1>
-        <p>Milk Tea & Tea & Latte - Trà Sữa 1L Chỉ Từ 25K</p>
+        <img class="logo" src="https://i.ibb.co/3ykS5Zq/tatimi-logo.png" alt="TaTiMi Logo">
+        <h1>TaTiMi</h1>
+        <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
     </div>
 
     <div class="container">
-        <!-- TRÀ SỮA -->
         <div class="led-box card-trasua">
             <div class="card-title">🧋 TRÀ SỮA</div>
             <div id="menu-trasua" class="menu-list"></div>
         </div>
 
-        <!-- TRÀ TRÁI CÂY -->
         <div class="led-box card-traicay">
             <div class="card-title">🍑 TRÀ TRÁI CÂY</div>
             <div id="menu-traicay" class="menu-list"></div>
         </div>
 
-        <!-- LATTE -->
         <div class="led-box card-latte">
             <div class="card-title">🍵 LATTE</div>
             <div id="menu-latte" class="menu-list"></div>
         </div>
 
-        <!-- TOPPING THÊM -->
         <div class="led-box card-topping">
             <div class="card-title">🧆 TOPPING THÊM</div>
             <div id="menu-topping" class="menu-list"></div>
         </div>
 
-        <!-- GIỎ HÀNG -->
         <div class="led-box card-cart">
             <div class="card-title" style="background: #2d3436;">
                 <span>🛒 ĐƠN HÀNG CỦA BẠN</span>
@@ -326,7 +335,6 @@
             </div>
         </div>
 
-        <!-- THÔNG TIN GIAO HÀNG -->
         <div class="led-box card-delivery">
             <div class="card-title" style="background: #a06437;">🚚 THÔNG TIN GIAO HÀNG</div>
             <div class="input-group">
