@@ -13,8 +13,6 @@
             --card-bg: #ffffff;
             --text: #333333;
             --subtext: #666666;
-            --item-bg: #fffcf9;
-            --item-border: #f0e0d6;
         }
 
         * { 
@@ -30,22 +28,54 @@
             padding-bottom: 40px; 
         }
 
-        /* HIỆU ỨNG ĐÈN LED LẤP LÁNH */
-        @keyframes ledGlow {
-            0% { box-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; border-color: #ff0055; }
-            25% { box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff; border-color: #00e5ff; }
-            50% { box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b; border-color: #ffeb3b; }
-            75% { box-shadow: 0 0 10px #76ff03, 0 0 20px #76ff03; border-color: #76ff03; }
-            100% { box-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; border-color: #ff0055; }
+        /* ---------------- HIỆU ỨNG LED KHÁC NHAU ---------------- */
+        /* LED Header: Đổi màu cầu vồng xoay vòng */
+        @keyframes ledHeader {
+            0% { box-shadow: 0 0 12px #ff0055; border-color: #ff0055; }
+            25% { box-shadow: 0 0 12px #00e5ff; border-color: #00e5ff; }
+            50% { box-shadow: 0 0 12px #ffeb3b; border-color: #ffeb3b; }
+            75% { box-shadow: 0 0 12px #76ff03; border-color: #76ff03; }
+            100% { box-shadow: 0 0 12px #ff0055; border-color: #ff0055; }
         }
 
+        /* LED Trà Sữa: Nhấp nháy Tím - Hồng */
+        @keyframes ledTraSua {
+            0%, 100% { box-shadow: 0 0 10px #ff007f, inset 0 0 5px #ff007f; border: 2px solid #ff007f; }
+            50% { box-shadow: 0 0 18px #7928ca, inset 0 0 8px #7928ca; border: 2px solid #7928ca; }
+        }
+
+        /* LED Trà Trái Cây: Nhấp nháy Cam - Vàng Sáng */
+        @keyframes ledTraiCay {
+            0%, 100% { box-shadow: 0 0 10px #ff9100, inset 0 0 5px #ff9100; border: 2px solid #ff9100; }
+            50% { box-shadow: 0 0 18px #ffea00, inset 0 0 8px #ffea00; border: 2px solid #ffea00; }
+        }
+
+        /* LED Latte: Nhấp nháy Xanh Lá - Ngọc Bích */
+        @keyframes ledLatte {
+            0%, 100% { box-shadow: 0 0 10px #00e676, inset 0 0 5px #00e676; border: 2px solid #00e676; }
+            50% { box-shadow: 0 0 18px #1de9b6, inset 0 0 8px #1de9b6; border: 2px solid #1de9b6; }
+        }
+
+        /* LED Topping: Nhấp nháy Đỏ - Vàng Đồng */
+        @keyframes ledTopping {
+            0%, 100% { box-shadow: 0 0 10px #ff3d00, inset 0 0 5px #ff3d00; border: 2px solid #ff3d00; }
+            50% { box-shadow: 0 0 18px #ffc107, inset 0 0 8px #ffc107; border: 2px solid #ffc107; }
+        }
+
+        /* LED Giỏ Hàng & Giao Hàng: Nhấp nháy Xanh Dương - Trắng */
+        @keyframes ledCart {
+            0%, 100% { box-shadow: 0 0 10px #00b0ff; border: 2px solid #00b0ff; }
+            50% { box-shadow: 0 0 18px #0d47a1; border: 2px solid #0d47a1; }
+        }
+
+        /* HEADER */
         .header { 
             background: linear-gradient(135deg, #fceae6, #f3d1c8); 
             padding: 25px 20px; 
             text-align: center; 
             border-radius: 0 0 24px 24px; 
             border-bottom: 4px solid #ff0055;
-            animation: ledGlow 2s infinite linear;
+            animation: ledHeader 2s infinite linear;
         }
         .header h1 { 
             font-size: 30px; 
@@ -67,19 +97,73 @@
             margin: 0 auto; 
         }
 
-        /* CARD DANH MỤC */
+        /* CARD CHUNG */
         .card { 
             background: var(--card-bg); 
             border-radius: 16px; 
             padding: 16px; 
             margin-bottom: 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: all 0.3s ease;
         }
+
+        /* ---------------- MÀU SẮC RIÊNG BIỆT CHO TỪNG NGĂN ---------------- */
+        /* 1. Ngăn Trà Sữa (Tông Hồng / Tím) */
+        .card-trasua {
+            animation: ledTraSua 1.8s infinite alternate ease-in-out;
+        }
+        .card-trasua .card-title {
+            background: linear-gradient(135deg, #d81b60, #8e24aa);
+        }
+        .card-trasua .menu-item {
+            background-color: #fff0f5;
+            border: 1px solid #f8bbd0;
+        }
+
+        /* 2. Ngăn Trà Trái Cây (Tông Cam / Vàng) */
+        .card-traicay {
+            animation: ledTraiCay 1.4s infinite alternate ease-in-out;
+        }
+        .card-traicay .card-title {
+            background: linear-gradient(135deg, #fb8c00, #f57c00);
+        }
+        .card-traicay .menu-item {
+            background-color: #fff8e1;
+            border: 1px solid #ffe082;
+        }
+
+        /* 3. Ngăn Latte (Tông Xanh Lá / Matcha) */
+        .card-latte {
+            animation: ledLatte 2.2s infinite alternate ease-in-out;
+        }
+        .card-latte .card-title {
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+        }
+        .card-latte .menu-item {
+            background-color: #f1f8e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        /* 4. Ngăn Topping (Tông Đỏ Nâu / Caramel) */
+        .card-topping {
+            animation: ledTopping 1.6s infinite alternate ease-in-out;
+        }
+        .card-topping .card-title {
+            background: linear-gradient(135deg, #e53935, #d81b60);
+        }
+        .card-topping .menu-item {
+            background-color: #fbe9e7;
+            border: 1px solid #ffccbc;
+        }
+
+        /* Giỏ hàng & Thông tin */
+        .card-cart { animation: ledCart 2s infinite alternate; }
+        .card-delivery { animation: ledCart 2.5s infinite alternate; }
+
+        /* TIÊU ĐỀ NGĂN */
         .card-title { 
             font-size: 16px; 
             font-weight: 800; 
             color: white; 
-            background: var(--primary); 
             padding: 10px 16px; 
             border-radius: 10px; 
             margin-bottom: 14px; 
@@ -87,23 +171,18 @@
             align-items: center; 
             justify-content: space-between; 
             letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* DANH SÁCH MÓN ĐƯỢC CHIA KHUNG DỄ NHÌN */
+        /* DANH SÁCH MÓN */
         .menu-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
         .menu-item { 
-            background-color: var(--item-bg);
-            border: 1px solid var(--item-border);
             border-radius: 12px;
             padding: 12px; 
-            transition: all 0.2s ease;
-        }
-        .menu-item:hover {
-            border-color: var(--primary);
         }
         .item-name { 
             font-weight: 700; 
@@ -114,11 +193,6 @@
             align-items: center;
             gap: 6px;
         }
-        .item-name::before {
-            content: "•";
-            color: var(--primary);
-            font-size: 18px;
-        }
         .size-options { 
             display: flex; 
             gap: 8px; 
@@ -126,7 +200,7 @@
         .btn-size { 
             flex: 1; 
             background: #ffffff; 
-            border: 1.5px solid #e0e0e0; 
+            border: 1.5px solid #dcdde1; 
             padding: 8px 10px; 
             border-radius: 8px; 
             font-size: 12px; 
@@ -136,17 +210,17 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
         .btn-size:active { 
-            background: #fdf0e6; 
-            border-color: var(--primary); 
+            background: #e1b12c; 
+            color: white;
             transform: scale(0.98);
         }
         .btn-size span.price { 
-            color: var(--primary-dark); 
+            color: #d63031; 
             font-weight: 800; 
-            background: #f7e8dd;
+            background: #f1f2f6;
             padding: 2px 6px;
             border-radius: 4px;
         }
@@ -177,7 +251,7 @@
             justify-content: space-between; 
             font-size: 16px; 
             font-weight: 800; 
-            color: var(--primary-dark); 
+            color: #d63031; 
             padding: 0 4px;
         }
         .btn-clear { 
@@ -231,7 +305,7 @@
 
         .btn-zalo {
             background: var(--zalo-blue);
-            animation: ledGlow 1.5s infinite linear;
+            animation: ledHeader 1.5s infinite linear;
         }
 
         .btn-mess {
@@ -253,31 +327,31 @@
 
     <div class="container">
         <!-- TRÀ SỮA -->
-        <div class="card">
+        <div class="card card-trasua">
             <div class="card-title">🧋 TRÀ SỮA</div>
             <div id="menu-trasua" class="menu-list"></div>
         </div>
 
         <!-- TRÀ TRÁI CÂY -->
-        <div class="card">
+        <div class="card card-traicay">
             <div class="card-title">🍑 TRÀ TRÁI CÂY</div>
             <div id="menu-traicay" class="menu-list"></div>
         </div>
 
         <!-- LATTE -->
-        <div class="card">
+        <div class="card card-latte">
             <div class="card-title">🍵 LATTE</div>
             <div id="menu-latte" class="menu-list"></div>
         </div>
 
         <!-- TOPPING THÊM -->
-        <div class="card">
+        <div class="card card-topping">
             <div class="card-title">🧆 TOPPING THÊM</div>
             <div id="menu-topping" class="menu-list"></div>
         </div>
 
         <!-- GIỎ HÀNG -->
-        <div class="card">
+        <div class="card card-cart">
             <div class="card-title" style="background: #2d3436;">
                 <span>🛒 ĐƠN HÀNG CỦA BẠN</span>
                 <button class="btn-clear" onclick="xoaGioHang()">Xóa tất cả</button>
@@ -291,7 +365,7 @@
         </div>
 
         <!-- THÔNG TIN GIAO HÀNG -->
-        <div class="card">
+        <div class="card card-delivery">
             <div class="card-title" style="background: #a06437;">🚚 THÔNG TIN GIAO HÀNG</div>
             <div class="input-group">
                 <input type="text" id="cus-name" placeholder="Tên khách hàng...">
@@ -472,3 +546,4 @@
     </script>
 </body>
 </html>
+p
