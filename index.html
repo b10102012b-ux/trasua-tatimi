@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TATIMI - Chicken & Milk Tea</title>
+    <title>TaTiMi - Milk Tea & Tea & Latte</title>
     <style>
         :root {
             --primary: #c88a58;
@@ -28,7 +28,7 @@
             padding-bottom: 40px; 
         }
 
-        /* ---------------- KỸ THUẬT LED CHẠY XOAY VÒNG QUANH VIỀN ---------------- */
+        /* ---------------- HIỆU ỨNG LED CHẠY XOAY VÒNG ---------------- */
         @property --angle {
             syntax: '<angle>';
             initial-value: 0deg;
@@ -41,12 +41,50 @@
             }
         }
 
-        /* KHUNG CHUNG CÓ LED CHẠY QUANH VIỀN */
+        /* HEADER */
+        .header { 
+            position: relative;
+            background: linear-gradient(135deg, #fceae6, #f3d1c8); 
+            padding: 22px 20px; 
+            text-align: center; 
+            border-radius: 0 0 24px 24px; 
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: -3px;
+            border-radius: 0 0 27px 27px;
+            background: conic-gradient(from var(--angle), #ff0055, #ffeb3b, #00e5ff, #76ff03, #ff0055);
+            z-index: -1;
+            animation: rotateLed 2.5s linear infinite;
+        }
+        .header h1 { 
+            font-size: 28px; 
+            font-weight: 900; 
+            color: #8c532b; 
+            letter-spacing: 1px; 
+        }
+        .header p { 
+            font-size: 13px; 
+            color: #8c532b; 
+            margin-top: 4px; 
+            font-weight: 700; 
+        }
+
+        /* CONTAINER & LED BOX */
+        .container { 
+            padding: 15px; 
+            max-width: 500px; 
+            margin: 0 auto; 
+        }
+
         .led-box {
             position: relative;
             background: #fff;
             border-radius: 18px;
-            padding: 16px;
+            padding: 14px;
             margin-bottom: 20px;
             z-index: 1;
         }
@@ -65,86 +103,51 @@
             opacity: 0.7;
         }
 
-        /* HEADER */
-        .header { 
-            position: relative;
-            background: linear-gradient(135deg, #fff2f2, #fceae6); 
-            padding: 20px; 
-            text-align: center; 
-            border-radius: 0 0 24px 24px; 
-            margin-bottom: 20px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: -3px;
-            border-radius: 0 0 27px 27px;
-            background: conic-gradient(from var(--angle), #ff0055, #ffeb3b, #00e5ff, #76ff03, #ff0055);
-            z-index: -1;
-            animation: rotateLed 2.5s linear infinite;
-        }
-        
-        .logo-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            border: 3px solid #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .header h1 { 
-            font-size: 26px; 
-            font-weight: 900; 
-            color: #5c3013; 
-            letter-spacing: 1px; 
-        }
-        .header p { 
-            font-size: 13px; 
-            color: #8c532b; 
-            margin-top: 2px; 
-            font-weight: 700; 
-        }
-
-        /* MÀU LED CHẠY VIỀN TỪNG KHUNG DANH MỤC */
+        /* MÀU LED VIỀN & MÀU TỪNG KHUNG (TĂNG ĐỘ ĐẬM CHO VIỀN MÓN ĂN) */
         .card-trasua::before, .card-trasua::after { background: conic-gradient(from var(--angle), #ff007f, #7928ca, #ff4081, #ff007f); }
         .card-trasua .card-title { background: linear-gradient(135deg, #d81b60, #8e24aa); }
+        .card-trasua .menu-item { 
+            background-color: #fff5f8; 
+            border: 2px solid #f0a3bd; /* Viền hồng đậm rõ hơn */
+        }
 
         .card-traicay::before, .card-traicay::after { background: conic-gradient(from var(--angle), #ff9100, #ffea00, #ff3d00, #ff9100); }
         .card-traicay .card-title { background: linear-gradient(135deg, #fb8c00, #f57c00); }
+        .card-traicay .menu-item { 
+            background-color: #fffbf0; 
+            border: 2px solid #ffbe76; /* Viền cam đậm rõ hơn */
+        }
 
         .card-latte::before, .card-latte::after { background: conic-gradient(from var(--angle), #00e676, #1de9b6, #00c853, #00e676); }
         .card-latte .card-title { background: linear-gradient(135deg, #43a047, #2e7d32); }
+        .card-latte .menu-item { 
+            background-color: #f4faf2; 
+            border: 2px solid #91d18b; /* Viền xanh lá đậm rõ hơn */
+        }
 
         .card-topping::before, .card-topping::after { background: conic-gradient(from var(--angle), #ff3d00, #ffc107, #d81b60, #ff3d00); }
         .card-topping .card-title { background: linear-gradient(135deg, #e53935, #d81b60); }
+        .card-topping .menu-item { 
+            background-color: #fdf2f0; 
+            border: 2px solid #f3a698; /* Viền đỏ nhạt đậm rõ hơn */
+        }
 
         .card-cart::before, .card-cart::after,
         .card-delivery::before, .card-delivery::after { background: conic-gradient(from var(--angle), #00b0ff, #00e5ff, #0d47a1, #00b0ff); }
 
-        .container { 
-            padding: 15px; 
-            max-width: 500px; 
-            margin: 0 auto; 
-        }
-
+        /* TIÊU ĐỀ KHUNG DANH MỤC */
         .card-title { 
             font-size: 16px; 
             font-weight: 800; 
             color: white; 
             padding: 10px 16px; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             margin-bottom: 14px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .menu-list {
@@ -153,51 +156,50 @@
             gap: 12px;
         }
 
-        /* TỪNG Ô MÓN ĂN - GIỮ NGUYÊN NHƯ BẢN GỐC (KHÔNG LED BÊN TRONG) */
+        /* CÁC Ô MÓN ĂN DẠNG THẺ (CARD) */
         .menu-item { 
-            padding: 10px 0;
-            border-bottom: 1px dashed #eee;
-        }
-        .menu-item:last-child {
-            border-bottom: none;
+            border-radius: 14px;
+            padding: 12px 14px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
         }
 
         .item-name { 
             font-weight: 800; 
-            font-size: 16px; 
+            font-size: 15px; 
             color: #2d3436; 
             margin-bottom: 10px; 
         }
+        
         .size-options { 
             display: flex; 
             gap: 10px; 
         }
+
         .btn-size { 
             flex: 1; 
             background: #ffffff; 
-            border: 1.5px solid #e2e8f0; 
-            padding: 9px 12px; 
+            border: 1.5px solid #cbd5e1; 
+            padding: 8px 12px; 
             border-radius: 10px; 
             font-size: 13px; 
             font-weight: 700; 
-            color: #444; 
+            color: #333; 
             cursor: pointer; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
+
         .btn-size:active { 
             background: #e1b12c; 
             color: white;
             transform: scale(0.97);
         }
+
         .btn-size span.price { 
             color: #d63031; 
             font-weight: 800; 
-            background: #ffeae8;
-            padding: 3px 8px;
-            border-radius: 6px;
         }
 
         /* GIỎ HÀNG */
@@ -246,7 +248,7 @@
         input, textarea { 
             width: 100%; 
             padding: 12px; 
-            border: 1.5px solid #e2e8f0; 
+            border: 1.5px solid #cbd5e1; 
             border-radius: 10px; 
             font-size: 14px; 
             outline: none; 
@@ -288,9 +290,8 @@
 <body>
 
     <div class="header">
-        <img src="logo.png" alt="TaTiMi Logo" class="logo-img" onerror="this.style.display='none'">
-        <h1>TaTiMi</h1>
-        <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
+        <h1>✨ TaTiMi ✨</h1>
+        <p>Milk Tea & Tea & Latte - Trà Sữa 1L Chỉ Từ 25K</p>
     </div>
 
     <div class="container">
@@ -358,37 +359,37 @@
 
         const menuData = {
             trasua: [
-                { name: "Truyền thống", prices: { "500ml": 15000, "1L": 25000 } },
-                { name: "Trà sữa thái xanh", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Trà sữa kem trứng", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Nhài hoàng kim", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Sữa tươi trân châu đường đen", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Trà sữa dâu hạt nổ", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Trà sữa phô mai tươi", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Trà sữa phô mai Jerry", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Trà sữa Full Topping", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Lục trà sữa xoài", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Sữa tươi trân châu đường đen kem trứng", prices: { "500ml": 25000, "1L": 40000 } }
+                { name: "Truyền thống", prices: { "500ml": "15k", "1L": "25k" }, rawPrices: { "500ml": 15000, "1L": 25000 } },
+                { name: "Trà sữa thái xanh", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa kem trứng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Nhài hoàng kim", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Sữa tươi trân châu đường đen", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa dâu hạt nổ", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa phô mai tươi", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa phô mai Jerry", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa Full Topping", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Lục trà sữa xoài", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Sữa tươi trân châu đường đen kem trứng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } }
             ],
             traicay: [
-                { name: "Trà thanh đào", prices: { "500ml": 15000, "1L": 30000 } },
-                { name: "Trà xoài kem cheese", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Trà olong sen vàng", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Trà tắc", prices: { "800ml": 10000, "1L": 15000 } }
+                { name: "Trà thanh đào", prices: { "500ml": "15k", "1L": "30k" }, rawPrices: { "500ml": 15000, "1L": 30000 } },
+                { name: "Trà xoài kem cheese", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà olong sen vàng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà tắc", prices: { "800ml": "10k", "1L": "15k" }, rawPrices: { "800ml": 10000, "1L": 15000 } }
             ],
             latte: [
-                { name: "Matcha Latte", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Khoai môn Latte", prices: { "500ml": 20000, "1L": 35000 } },
-                { name: "Matcha / Khoai Môn Kem muối", prices: { "500ml": 25000, "1L": 40000 } },
-                { name: "Matcha / Khoai Môn Kem Cheese", prices: { "500ml": 25000, "1L": 40000 } }
+                { name: "Matcha Latte", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Khoai môn Latte", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Matcha / Khoai Môn Kem muối", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Matcha / Khoai Môn Kem Cheese", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } }
             ],
             topping: [
-                { name: "Cheese ball", prices: { "Thêm": 5000 } },
-                { name: "Phô mai Jerry", prices: { "Thêm": 5000 } },
-                { name: "Pudding trứng / matcha", prices: { "Thêm": 5000 } },
-                { name: "Kem cheese / muối / trứng", prices: { "Thêm": 5000 } },
-                { name: "Pudding phô mai tươi / mặn", prices: { "Thêm": 6000 } },
-                { name: "Trân châu đen", prices: { "Thêm": 5000 } }
+                { name: "Cheese ball", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Phô mai Jerry", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Pudding trứng / matcha", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Kem cheese / muối / trứng", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Pudding phô mai tươi / mặn", prices: { "Thêm": "6k" }, rawPrices: { "Thêm": 6000 } },
+                { name: "Trân châu đen", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } }
             ]
         };
 
@@ -400,7 +401,7 @@
                 const btnHtml = Object.keys(item.prices).map(size => `
                     <button class="btn-size" onclick="addToCart('${catKey}', ${idx}, '${size}')">
                         <span>+ ${size}</span>
-                        <span class="price">${item.prices[size] / 1000}k</span>
+                        <span class="price">${item.prices[size]}</span>
                     </button>
                 `).join('');
 
@@ -415,7 +416,7 @@
 
         function addToCart(catKey, index, size) {
             const item = menuData[catKey][index];
-            const price = item.prices[size];
+            const price = item.rawPrices[size];
             const cartKey = `${item.name} (${size})`;
 
             const existing = cart.find(i => i.key === cartKey);
