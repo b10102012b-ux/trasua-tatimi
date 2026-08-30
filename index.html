@@ -28,7 +28,7 @@
             padding-bottom: 40px; 
         }
 
-        /* ---------------- KỸ THUẬT LED CHẠY DẢI MÀU XOAY VÒNG ---------------- */
+        /* ---------------- KỸ THUẬT LED CHẠY XOAY VÒNG QUANH VIỀN ---------------- */
         @property --angle {
             syntax: '<angle>';
             initial-value: 0deg;
@@ -41,12 +41,12 @@
             }
         }
 
-        /* KHUNG CHUNG CÓ LED CHẠY XUNG QUANH */
+        /* KHUNG CHUNG CÓ LED CHẠY QUANH VIỀN */
         .led-box {
             position: relative;
             background: #fff;
-            border-radius: 16px;
-            padding: 14px;
+            border-radius: 18px;
+            padding: 16px;
             margin-bottom: 20px;
             z-index: 1;
         }
@@ -55,7 +55,7 @@
             content: '';
             position: absolute;
             top: -3px; left: -3px; right: -3px; bottom: -3px;
-            border-radius: 19px;
+            border-radius: 21px;
             z-index: -1;
             animation: rotateLed 3s linear infinite;
         }
@@ -65,7 +65,7 @@
             opacity: 0.7;
         }
 
-        /* 1. HEADER CÓ LOGO VÀ LED CẦU VỒNG */
+        /* HEADER */
         .header { 
             position: relative;
             background: linear-gradient(135deg, #fff2f2, #fceae6); 
@@ -111,22 +111,18 @@
             font-weight: 700; 
         }
 
-        /* MÀU LED TỪNG NGĂN MENU */
+        /* MÀU LED CHẠY VIỀN TỪNG KHUNG DANH MỤC */
         .card-trasua::before, .card-trasua::after { background: conic-gradient(from var(--angle), #ff007f, #7928ca, #ff4081, #ff007f); }
         .card-trasua .card-title { background: linear-gradient(135deg, #d81b60, #8e24aa); }
-        .card-trasua .menu-item { background-color: #fff5f8; }
 
         .card-traicay::before, .card-traicay::after { background: conic-gradient(from var(--angle), #ff9100, #ffea00, #ff3d00, #ff9100); }
         .card-traicay .card-title { background: linear-gradient(135deg, #fb8c00, #f57c00); }
-        .card-traicay .menu-item { background-color: #fffbf0; }
 
         .card-latte::before, .card-latte::after { background: conic-gradient(from var(--angle), #00e676, #1de9b6, #00c853, #00e676); }
         .card-latte .card-title { background: linear-gradient(135deg, #43a047, #2e7d32); }
-        .card-latte .menu-item { background-color: #f4faf2; }
 
         .card-topping::before, .card-topping::after { background: conic-gradient(from var(--angle), #ff3d00, #ffc107, #d81b60, #ff3d00); }
         .card-topping .card-title { background: linear-gradient(135deg, #e53935, #d81b60); }
-        .card-topping .menu-item { background-color: #fdf2f0; }
 
         .card-cart::before, .card-cart::after,
         .card-delivery::before, .card-delivery::after { background: conic-gradient(from var(--angle), #00b0ff, #00e5ff, #0d47a1, #00b0ff); }
@@ -157,44 +153,32 @@
             gap: 12px;
         }
 
+        /* TỪNG Ô MÓN ĂN - GIỮ NGUYÊN NHƯ BẢN GỐC (KHÔNG LED BÊN TRONG) */
         .menu-item { 
-            border-radius: 14px;
-            padding: 12px; 
-            position: relative;
-            z-index: 1;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
         }
-
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            border-radius: 16px;
-            z-index: -1;
-            animation: rotateLed 2s linear infinite;
+        .menu-item:last-child {
+            border-bottom: none;
         }
-
-        .card-trasua .menu-item::before { background: conic-gradient(from var(--angle), #ff007f, #ffffff, #7928ca, #ff007f); }
-        .card-traicay .menu-item::before { background: conic-gradient(from var(--angle), #ff9100, #ffffff, #ffea00, #ff9100); }
-        .card-latte .menu-item::before { background: conic-gradient(from var(--angle), #00e676, #ffffff, #1de9b6, #00e676); }
-        .card-topping .menu-item::before { background: conic-gradient(from var(--angle), #ff3d00, #ffffff, #ffc107, #ff3d00); }
 
         .item-name { 
             font-weight: 800; 
-            font-size: 15px; 
+            font-size: 16px; 
             color: #2d3436; 
-            margin-bottom: 8px; 
+            margin-bottom: 10px; 
         }
         .size-options { 
             display: flex; 
-            gap: 8px; 
+            gap: 10px; 
         }
         .btn-size { 
             flex: 1; 
             background: #ffffff; 
             border: 1.5px solid #e2e8f0; 
-            padding: 8px 10px; 
+            padding: 9px 12px; 
             border-radius: 10px; 
-            font-size: 12px; 
+            font-size: 13px; 
             font-weight: 700; 
             color: #444; 
             cursor: pointer; 
@@ -212,7 +196,7 @@
             color: #d63031; 
             font-weight: 800; 
             background: #ffeae8;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 6px;
         }
 
@@ -304,7 +288,6 @@
 <body>
 
     <div class="header">
-        <!-- Đặt ảnh logo tên là logo.png cùng thư mục với file HTML này -->
         <img src="logo.png" alt="TaTiMi Logo" class="logo-img" onerror="this.style.display='none'">
         <h1>TaTiMi</h1>
         <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
