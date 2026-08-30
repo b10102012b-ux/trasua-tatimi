@@ -13,6 +13,8 @@
             --card-bg: #ffffff;
             --text: #333333;
             --subtext: #666666;
+            --item-bg: #fffcf9;
+            --item-border: #f0e0d6;
         }
 
         * { 
@@ -37,7 +39,6 @@
             100% { box-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; border-color: #ff0055; }
         }
 
-        /* HEADER VỚI VIỀN ĐÈN NHÁY */
         .header { 
             background: linear-gradient(135deg, #fceae6, #f3d1c8); 
             padding: 25px 20px; 
@@ -66,40 +67,57 @@
             margin: 0 auto; 
         }
 
-        /* CARD DANH MỤC & GIỎ HÀNG */
+        /* CARD DANH MỤC */
         .card { 
             background: var(--card-bg); 
             border-radius: 16px; 
             padding: 16px; 
-            margin-bottom: 16px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
         .card-title { 
-            font-size: 15px; 
+            font-size: 16px; 
             font-weight: 800; 
             color: white; 
             background: var(--primary); 
-            padding: 8px 14px; 
-            border-radius: 8px; 
-            margin-bottom: 12px; 
+            padding: 10px 16px; 
+            border-radius: 10px; 
+            margin-bottom: 14px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
+            letter-spacing: 0.5px;
         }
 
-        /* ITEM MON */
-        .menu-item { 
-            border-bottom: 1px dashed #eee; 
-            padding: 12px 0; 
+        /* DANH SÁCH MÓN ĐƯỢC CHIA KHUNG DỄ NHÌN */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .menu-item:last-child { 
-            border-bottom: none; 
+        .menu-item { 
+            background-color: var(--item-bg);
+            border: 1px solid var(--item-border);
+            border-radius: 12px;
+            padding: 12px; 
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover {
+            border-color: var(--primary);
         }
         .item-name { 
             font-weight: 700; 
             font-size: 15px; 
-            color: #222; 
+            color: #2d3436; 
             margin-bottom: 8px; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .item-name::before {
+            content: "•";
+            color: var(--primary);
+            font-size: 18px;
         }
         .size-options { 
             display: flex; 
@@ -107,8 +125,8 @@
         }
         .btn-size { 
             flex: 1; 
-            background: #f8f9fa; 
-            border: 1px solid #e0e0e0; 
+            background: #ffffff; 
+            border: 1.5px solid #e0e0e0; 
             padding: 8px 10px; 
             border-radius: 8px; 
             font-size: 12px; 
@@ -118,14 +136,19 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .btn-size:active { 
-            background: #e8d0c0; 
+            background: #fdf0e6; 
             border-color: var(--primary); 
+            transform: scale(0.98);
         }
         .btn-size span.price { 
             color: var(--primary-dark); 
-            font-weight: 700; 
+            font-weight: 800; 
+            background: #f7e8dd;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         /* GIỎ HÀNG */
@@ -134,6 +157,9 @@
             justify-content: space-between; 
             margin-bottom: 10px; 
             font-size: 14px; 
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 8px;
         }
         .cart-empty { 
             text-align: center; 
@@ -152,6 +178,7 @@
             font-size: 16px; 
             font-weight: 800; 
             color: var(--primary-dark); 
+            padding: 0 4px;
         }
         .btn-clear { 
             background: none; 
@@ -179,7 +206,7 @@
             border-color: var(--primary); 
         }
 
-        /* NÚT BẤM GỬI ĐƠN HÀNG */
+        /* NÚT BẤM GỬI ĐƠN */
         .btn-group { 
             display: flex; 
             flex-direction: column; 
@@ -228,25 +255,25 @@
         <!-- TRÀ SỮA -->
         <div class="card">
             <div class="card-title">🧋 TRÀ SỮA</div>
-            <div id="menu-trasua"></div>
+            <div id="menu-trasua" class="menu-list"></div>
         </div>
 
         <!-- TRÀ TRÁI CÂY -->
         <div class="card">
             <div class="card-title">🍑 TRÀ TRÁI CÂY</div>
-            <div id="menu-traicay"></div>
+            <div id="menu-traicay" class="menu-list"></div>
         </div>
 
         <!-- LATTE -->
         <div class="card">
             <div class="card-title">🍵 LATTE</div>
-            <div id="menu-latte"></div>
+            <div id="menu-latte" class="menu-list"></div>
         </div>
 
         <!-- TOPPING THÊM -->
         <div class="card">
             <div class="card-title">🧆 TOPPING THÊM</div>
-            <div id="menu-topping"></div>
+            <div id="menu-topping" class="menu-list"></div>
         </div>
 
         <!-- GIỎ HÀNG -->
@@ -284,11 +311,9 @@
     </div>
 
     <script>
-        // CẤU HÌNH THÔNG TIN LIÊN HỆ CỦA QUÁN
         const SDT_ZALO = "0886522140"; 
         const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
 
-        // DỮ LIỆU MENU
         const menuData = {
             trasua: [
                 { name: "Truyền thống", prices: { "500ml": 15000, "1L": 25000 } },
@@ -327,7 +352,6 @@
 
         let cart = [];
 
-        // HIỂN THỊ DANH SÁCH MÓN
         function renderCategory(catKey, elementId) {
             const container = document.getElementById(elementId);
             container.innerHTML = menuData[catKey].map((item, idx) => {
@@ -347,7 +371,6 @@
             }).join('');
         }
 
-        // THÊM VÀO GIỎ HÀNG
         function addToCart(catKey, index, size) {
             const item = menuData[catKey][index];
             const price = item.prices[size];
@@ -362,13 +385,11 @@
             updateCart();
         }
 
-        // XÓA GIỎ HÀNG
         function xoaGioHang() {
             cart = [];
             updateCart();
         }
 
-        // CẬP NHẬT GIỎ HÀNG VÀ TỔNG TIỀN
         function updateCart() {
             const cartDiv = document.getElementById('cart-list');
             const totalDiv = document.getElementById('total-price');
@@ -398,7 +419,6 @@
             totalDiv.innerText = `${total.toLocaleString()} VNĐ`;
         }
 
-        // CHỨC NĂNG GỬI ĐƠN
         function guiDon(nenTang) {
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
@@ -445,7 +465,6 @@
             }
         }
 
-        // TỰ ĐỘNG CHẠY KHI MỞ TRANG
         renderCategory('trasua', 'menu-trasua');
         renderCategory('traicay', 'menu-traicay');
         renderCategory('latte', 'menu-latte');
