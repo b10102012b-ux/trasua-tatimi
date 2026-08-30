@@ -1,13 +1,10 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TaTiMi - Chicken & Milk Tea</title>
 
-    <!-- CẤU HÌNH LOGO MÀN HÌNH CHÍNH (APP ICON) & FAVICON -->
-    <link rel="icon" type="image/png" href="https://i.ibb.co/L5T1pvhX/tatimi-logo.png">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/L5T1pvhX/tatimi-logo.png">
     <meta name="apple-mobile-web-app-title" content="TaTiMi">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -69,6 +66,7 @@
             margin-bottom: 10px;
             border: 3px solid #fff;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            background-color: #fff;
         }
 
         .header h1 { 
@@ -318,7 +316,7 @@
 <body>
 
     <div class="header">
-        <img class="logo" src="https://i.ibb.co/L5T1pvhX/tatimi-logo.png" alt="TaTiMi Logo">
+        <img class="logo" id="main-logo" alt="TaTiMi Logo">
         <h1>TaTiMi</h1>
         <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
         <div class="note-ship">🛵 Nhận giao hàng từ 2 ly trở lên</div>
@@ -383,6 +381,11 @@
     </div>
 
     <script>
+        // LOGO BASE64 TRỰC TIẾP
+        const LOGO_DATA = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'><circle cx='250' cy='250' r='240' fill='%23fdf5f5' stroke='%235c3a21' stroke-width='8'/><circle cx='250' cy='250' r='230' fill='none' stroke='%23f3a698' stroke-width='4'/><path d='M225,120 C210,90 240,70 250,90 C260,70 290,90 275,120 Z' fill='%23f37b83'/><path d='M335,120 C345,110 355,120 345,130 Z' fill='%23f37b83'/><ellipse cx='250' cy='180' rx='85' ry='75' fill='none' stroke='%235c3a21' stroke-width='7'/><circle cx='205' cy='180' r='9' fill='%235c3a21'/><circle cx='295' cy='180' r='9' fill='%235c3a21'/><path d='M238,190 Q250,210 262,190 Z' fill='%23fbb03b' stroke='%235c3a21' stroke-width='4'/><circle cx='185' cy='200' r='14' fill='%23f8a5a5' opacity='0.7'/><circle cx='315' cy='200' r='14' fill='%23f8a5a5' opacity='0.7'/><text x='250' y='320' font-family='Arial Black, sans-serif' font-size='70' font-weight='900' fill='%235c3a21' text-anchor='middle'>TaTiMi</text><path d='M180,355 L220,355 M280,355 L320,355' stroke='%235c3a21' stroke-width='4'/><path d='M250,350 C245,340 255,340 250,358' fill='%23f37b83'/><text x='250' y='410' font-family='Arial, sans-serif' font-size='26' font-weight='bold' fill='%235c3a21' letter-spacing='5' text-anchor='middle'>CHICKEN &amp; MILKTEA</text></svg>";
+
+        document.getElementById('main-logo').src = LOGO_DATA;
+
         const SDT_ZALO = "0886522140"; 
         const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
 
