@@ -3,82 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xe Đẩy Trà Sữa</title>
+    <title>TATIMI - Milk Tea & Tea & Latte</title>
     <style>
-        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #f5f5f7; padding: 15px; color: #333; }
-        h1 { text-align: center; color: #d35400; font-size: 20px; margin-bottom: 15px; }
-        .section { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        h2 { font-size: 16px; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
-        .btn-add { background: #e67e22; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-        .total { font-size: 18px; font-weight: bold; color: #e74c3c; text-align: right; margin-top: 10px; }
-        input, textarea { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-        .btn-submit { width: 100%; background: #0068ff; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 12px; cursor: pointer; }
-        .btn-clear { background: #95a5a6; font-size: 12px; padding: 4px 8px; }
+        :root {
+            --primary: #c88a58;
+            --primary-dark: #a06437;
+            --bg-pink: #fdf5f5;
+            --zalo-blue: #0068ff;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --subtext: #666666;
+        }
+
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg-pink); color: var(--text); padding-bottom: 40px; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, #fceae6, #f3d1c8); padding: 25px 20px; text-align: center; border-radius: 0 0 24px 24px; box-shadow: 0 4px 12px rgba(200, 138, 88, 0.15); }
+        .header h1 { font-size: 28px; font-weight: 900; color: #a06437; letter-spacing: 1px; }
+        .header p { font-size: 13px; color: #8c532b; margin-top: 4px; font-weight: 600; }
+
+        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        /* Section Cards */
+        .card { background: var(--card-bg); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .card-title { font-size: 15px; font-weight: 800; color: white; background: var(--primary); padding: 8px 14px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+
+        /* Menu Item Layout */
+        .menu-item { border-bottom: 1px dashed #eee; padding: 12px 0; }
+        .menu-item:last-child { border-bottom: none; }
+        .item-name { font-weight: 700; font-size: 15px; color: #222; margin-bottom: 8px; }
+        .size-options { display: flex; gap: 8px; }
+        .btn-size { flex: 1; background: #f8f9fa; border: 1px solid #e0e0e0; padding: 8px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #444; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .btn-size:active { background: #e8d0c0; border-color: var(--primary); }
+        .btn-size span.price { color: var(--primary-dark); font-weight: 700; }
+
+        /* Cart */
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .cart-empty { text-align: center; color: var(--subtext); font-size: 13px; padding: 10px 0; }
+        .divider { height: 1px; background: #eee; margin: 12px 0; }
+        .total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: var(--primary-dark); }
+        .btn-clear { background: none; border: none; color: #d63031; font-size: 12px; cursor: pointer; text-decoration: underline; font-weight: 600; }
+
+        /* Inputs */
+        .input-group { margin-bottom: 10px; }
+        input, textarea { width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 14px; outline: none; }
+        input:focus, textarea:focus { border-color: var(--primary); }
+
+        /* Submit Button */
+        .btn-submit { width: 100%; background: var(--zalo-blue); color: white; border: none; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 104, 255, 0.25); margin-top: 10px; }
+        .btn-submit:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
-    <h1>🧋 XE ĐẨY TRÀ SỮA</h1>
-
-    <div class="section">
-        <h2>📋 Thực Đơn</h2>
-        <div id="menu"></div>
+    <div class="header">
+        <h1>TaTiMi</h1>
+        <p>Milk Tea & Tea & Latte - Trà Sữa 1L Chỉ Từ 25K</p>
     </div>
 
-    <div class="section">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2>🛒 Giỏ Hàng</h2>
-            <button class="btn-add btn-clear" onclick="xoaGioHang()">Xóa tất cả</button>
+    <div class="container">
+        <!-- TRÀ SỮA -->
+        <div class="card">
+            <div class="card-title">🧋 TRÀ SỮA</div>
+            <div id="menu-trasua"></div>
         </div>
-        <div id="cart-list" style="margin-top: 10px;">Chưa chọn món nào</div>
-        <div class="total" id="total-price">Tổng: 0 VNĐ</div>
-    </div>
 
-    <div class="section">
-        <h2>🚚 Thông Tin Giao Hàng</h2>
-        <input type="text" id="cus-name" placeholder="Tên khách hàng">
-        <input type="tel" id="cus-phone" placeholder="Số điện thoại">
-        <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng"></textarea>
-        <button class="btn-submit" onclick="copyVaMoZalo()">📲 GỬI ĐƠN QUA ZALO</button>
+        <!-- TRÀ TRÁI CÂY -->
+        <div class="card">
+            <div class="card-title">🍑 TRÀ TRÁI CÂY</div>
+            <div id="menu-traicay"></div>
+        </div>
+
+        <!-- LATTE -->
+        <div class="card">
+            <div class="card-title">🍵 LATTE</div>
+            <div id="menu-latte"></div>
+        </div>
+
+        <!-- TOPPING THÊM -->
+        <div class="card">
+            <div class="card-title">🧆 TOPPING THÊM</div>
+            <div id="menu-topping"></div>
+        </div>
+
+        <!-- GIỎ HÀNG -->
+        <div class="card">
+            <div class="card-title" style="background: #2d3436;">
+                <span>🛒 ĐƠN HÀNG CỦA BẠN</span>
+                <button class="btn-clear" onclick="xoaGioHang()">Xóa tất cả</button>
+            </div>
+            <div id="cart-list" class="cart-empty">Chưa chọn món nào</div>
+            <div class="divider"></div>
+            <div class="total-row">
+                <span>Tổng cộng:</span>
+                <span id="total-price">0 VNĐ</span>
+            </div>
+        </div>
+
+        <!-- THÔNG TIN GIAO HÀNG -->
+        <div class="card">
+            <div class="card-title" style="background: #a06437;">🚚 THÔNG TIN GIAO HÀNG</div>
+            <div class="input-group">
+                <input type="text" id="cus-name" placeholder="Tên khách hàng...">
+            </div>
+            <div class="input-group">
+                <input type="tel" id="cus-phone" placeholder="Số điện thoại...">
+            </div>
+            <div class="input-group">
+                <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="copyVaMoZalo()">📲 GỬI ĐƠN QUA ZALO TATIMI</button>
+        </div>
     </div>
 
     <script>
-        // SỬA SỐ ĐIỆN THOẠI ZALO CỦA BẠN VÀO ĐÂY
+        // SĐT ZALO DỰA THEO ẢNH MENU
         const SDT_ZALO = "0886522140"; 
 
-        const menu = [
-            { id: 1, name: "Trà sữa truyền thống", price: 20000 },
-            { id: 2, name: "Trà sữa Thái xanh", price: 22000 },
-            { id: 3, name: "Trà sữa Ô long", price: 25000 },
-            { id: 4, name: "Trà đào cam sả", price: 25000 },
-            { id: 5, name: "Trân châu đen (Thêm)", price: 5000 }
-        ];
+        const menuData = {
+            trasua: [
+                { name: "Truyền thống", prices: { "500ml": 15000, "1L": 25000 } },
+                { name: "Trà sữa thái xanh", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa kem trứng", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Nhài hoàng kim", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Sữa tươi trân châu đường đen", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa dâu hạt nổ", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa phô mai tươi", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa phô mai Jerry", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa Full Topping", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Lục trà sữa xoài", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Sữa tươi trân châu đường đen kem trứng", prices: { "500ml": 25000, "1L": 40000 } }
+            ],
+            traicay: [
+                { name: "Trà thanh đào", prices: { "500ml": 15000, "1L": 30000 } },
+                { name: "Trà xoài kem cheese", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà olong sen vàng", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà tắc", prices: { "800ml": 10000, "1L": 15000 } }
+            ],
+            latte: [
+                { name: "Matcha Latte", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Khoai môn Latte", prices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Matcha / Khoai Môn Kem muối", prices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Matcha / Khoai Môn Kem Cheese", prices: { "500ml": 25000, "1L": 40000 } }
+            ],
+            topping: [
+                { name: "Cheese ball", prices: { "Thêm": 5000 } },
+                { name: "Phô mai Jerry", prices: { "Thêm": 5000 } },
+                { name: "Pudding trứng / matcha", prices: { "Thêm": 5000 } },
+                { name: "Kem cheese / muối / trứng", prices: { "Thêm": 5000 } },
+                { name: "Pudding phô mai tươi / mặn", prices: { "Thêm": 6000 } },
+                { name: "Trân châu đen", prices: { "Thêm": 5000 } }
+            ]
+        };
 
-        let cart = {};
+        let cart = [];
 
-        function renderMenu() {
-            const menuDiv = document.getElementById('menu');
-            menuDiv.innerHTML = menu.map(item => `
-                <div class="menu-item">
-                    <div>
-                        <strong>${item.name}</strong><br>
-                        <small style="color: #7f8c8d">${item.price.toLocaleString()} VNĐ</small>
+        function renderCategory(catKey, elementId) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = menuData[catKey].map((item, idx) => {
+                const btnHtml = Object.keys(item.prices).map(size => `
+                    <button class="btn-size" onclick="addToCart('${catKey}', ${idx}, '${size}')">
+                        <span>+ ${size}</span>
+                        <span class="price">${item.prices[size] / 1000}k</span>
+                    </button>
+                `).join('');
+
+                return `
+                    <div class="menu-item">
+                        <div class="item-name">${item.name}</div>
+                        <div class="size-options">${btnHtml}</div>
                     </div>
-                    <button class="btn-add" onclick="addToCart(${item.id})">+ Thêm</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function addToCart(id) {
-            cart[id] = (cart[id] || 0) + 1;
+        function addToCart(catKey, index, size) {
+            const item = menuData[catKey][index];
+            const price = item.prices[size];
+            const cartKey = `${item.name} (${size})`;
+
+            const existing = cart.find(i => i.key === cartKey);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ key: cartKey, name: item.name, size: size, price: price, qty: 1 });
+            }
             updateCart();
         }
 
         function xoaGioHang() {
-            cart = {};
+            cart = [];
             updateCart();
         }
 
@@ -86,22 +201,29 @@
             const cartDiv = document.getElementById('cart-list');
             const totalDiv = document.getElementById('total-price');
             let total = 0;
-            let html = '';
 
-            for (let id in cart) {
-                const item = menu.find(m => m.id == id);
-                const itemTotal = item.price * cart[id];
+            if (cart.length === 0) {
+                cartDiv.className = 'cart-empty';
+                cartDiv.innerHTML = 'Chưa chọn món nào';
+                totalDiv.innerText = '0 VNĐ';
+                return;
+            }
+
+            cartDiv.className = '';
+            let html = '';
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
                 total += itemTotal;
                 html += `
                     <div class="cart-item">
-                        <span>${item.name} x<b>${cart[id]}</b></span>
-                        <span>${itemTotal.toLocaleString()} VNĐ</span>
+                        <span>${item.name} [<b>${item.size}</b>] x<b>${item.qty}</b></span>
+                        <span><b>${itemTotal.toLocaleString()} VNĐ</b></span>
                     </div>
                 `;
-            }
+            });
 
-            cartDiv.innerHTML = html || 'Chưa chọn món nào';
-            totalDiv.innerText = `Tổng: ${total.toLocaleString()} VNĐ`;
+            cartDiv.innerHTML = html;
+            totalDiv.innerText = `${total.toLocaleString()} VNĐ`;
         }
 
         function copyVaMoZalo() {
@@ -109,7 +231,7 @@
             const phone = document.getElementById('cus-phone').value.trim();
             const address = document.getElementById('cus-address').value.trim();
 
-            if (Object.keys(cart).length === 0) {
+            if (cart.length === 0) {
                 alert("Vui lòng chọn ít nhất 1 món!");
                 return;
             }
@@ -120,30 +242,31 @@
 
             let chiTietMon = "";
             let total = 0;
-            for (let id in cart) {
-                const item = menu.find(m => m.id == id);
-                const itemTotal = item.price * cart[id];
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
                 total += itemTotal;
-                chiTietMon += `- ${item.name} x${cart[id]}: ${itemTotal.toLocaleString()} VNĐ\n`;
-            }
+                chiTietMon += `- ${item.name} (${item.size}) x${item.qty}: ${itemTotal.toLocaleString()} VNĐ\n`;
+            });
 
-            const tinNhan = `🧋 ĐƠN ĐẶT TRÀ SỮA MỚI\n\n` +
-                            `👤 Khách: ${name}\n` +
-                            `📞 SĐT: ${phone}\n` +
+            const tinNhan = `🧋 ĐƠN ĐẶT HÀNG - TATIMI\n\n` +
+                            `👤 Khách hàng: ${name}\n` +
+                            `📞 Số điện thoại: ${phone}\n` +
                             `📍 Địa chỉ: ${address}\n\n` +
-                            `📋 Danh sách món:\n${chiTietMon}\n` +
+                            `📋 Món chọn:\n${chiTietMon}\n` +
                             `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
 
-            // Copy văn bản tự động
             navigator.clipboard.writeText(tinNhan).then(() => {
-                alert("📋 Đã sao chép nội dung đơn hàng!\n\nZalo sẽ mở ngay bây giờ, bạn chỉ cần bấm DÁN (Paste) vào ô chat và gửi đi nhé.");
+                alert("📋 Đã sao chép đơn hàng!\n\nZalo sẽ mở ngay bây giờ, bạn chỉ cần bấm DÁN (Paste) vào ô chat và gửi nhé.");
                 window.location.href = `https://zalo.me/${SDT_ZALO}`;
             }).catch(() => {
                 window.location.href = `https://zalo.me/${SDT_ZALO}`;
             });
         }
 
-        renderMenu();
+        renderCategory('trasua', 'menu-trasua');
+        renderCategory('traicay', 'menu-traicay');
+        renderCategory('latte', 'menu-latte');
+        renderCategory('topping', 'menu-topping');
     </script>
 </body>
 </html>
