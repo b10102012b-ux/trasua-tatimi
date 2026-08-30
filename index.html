@@ -1,0 +1,46 @@
+import datetime
+
+menu = {
+    1: ("Tra sua truyen thong", 20000),
+    2: ("Tra sua Thai xanh", 22000),
+    3: ("Tra sua O long", 25000),
+    4: ("Tra dao cam sa", 25000),
+    5: ("Tran chau den", 5000)
+}
+
+gio_hang = {}
+
+print("=== XE DAY TRA SUA ===")
+for k, v in menu.items():
+    print(f"{k}. {v[0]}: {v[1]:,} VNĐ")
+
+while True:
+    chon = input("\nNhap so chon mon (nhap 0 de xong): ")
+    if chon == '0':
+        break
+    if chon.isdigit() and int(chon) in menu:
+        mon = menu[int(chon)]
+        sl = int(input(f"Nhap so luong {mon[0]}: "))
+        gio_hang[mon[0]] = gio_hang.get(mon[0], 0) + sl
+    else:
+        print("Chon sai, vui long nhap lai!")
+
+if gio_hang:
+    print("\n--- THONG TIN SHIP ---")
+    ten = input("Ten khach hàng: ")
+    sdt = input("So dien thoai: ")
+    dia_chi = input("Dia chi giao: ")
+
+    tong = 0
+    print("\n=== HOA DON GIAO HANG ===")
+    print(f"Khach: {ten} - {sdt}")
+    print(f"Dia chi: {dia_chi}")
+    print("Món da chon:")
+    for mon, sl in gio_hang.items():
+        # Tim gia
+        gia = next(v[1] for v in menu.values() if v[0] == mon)
+        tt = gia * sl
+        tong += tt
+        print(f"- {mon} x{sl}: {tt:,} VNĐ")
+    print(f"TONG TIEN: {tong:,} VNĐ")
+    print("========================")
