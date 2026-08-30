@@ -15,7 +15,7 @@
         .cart-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
         .total { font-size: 18px; font-weight: bold; color: #e74c3c; text-align: right; margin-top: 10px; }
         input, textarea { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-        .btn-submit { width: 100%; background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 12px; cursor: pointer; }
+        .btn-submit { width: 100%; background: #0068ff; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 12px; cursor: pointer; }
         .btn-clear { background: #95a5a6; font-size: 12px; padding: 4px 8px; }
     </style>
 </head>
@@ -42,10 +42,13 @@
         <input type="text" id="cus-name" placeholder="Tên khách hàng">
         <input type="tel" id="cus-phone" placeholder="Số điện thoại">
         <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng"></textarea>
-        <button class="btn-submit" onclick="xacNhanDon()">XÁC NHẬN ĐƠN SHIP</button>
+        <button class="btn-submit" onclick="guiDonQuaZalo()">📲 GỬI ĐƠN QUA ZALO</button>
     </div>
 
     <script>
+        // SỬA SỐ ĐIỆN THOẠI ZALO CỦA BẠN VÀO ĐÂY (Viết liền, không khoảng cách)
+        const SODIENTHOAI_ZALO = "0123456789"; 
+
         const menu = [
             { id: 1, name: "Trà sữa truyền thống", price: 20000 },
             { id: 2, name: "Trà sữa Thái xanh", price: 22000 },
@@ -101,7 +104,7 @@
             totalDiv.innerText = `Tổng: ${total.toLocaleString()} VNĐ`;
         }
 
-        function xacNhanDon() {
+        function guiDonQuaZalo() {
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
             const address = document.getElementById('cus-address').value.trim();
@@ -115,14 +118,30 @@
                 return;
             }
 
-            alert(`✅ ĐÃ TẠO ĐƠN SHIP THÀNH CÔNG!\n\nKhách: ${name} - ${phone}\nĐ/c: ${address}`);
-            xoaGioHang();
-            document.getElementById('cus-name').value = '';
-            document.getElementById('cus-phone').value = '';
-            document.getElementById('cus-address').value = '';
+            let chiTietMon = "";
+            let total = 0;
+            for (let id in cart) {
+                const item = menu.find(m => m.id == id);
+                const itemTotal = item.price * cart[id];
+                total += itemTotal;
+                chiTietMon += `- ${item.name} x${cart[id]}: ${itemTotal.toLocaleString()} VNĐ\n`;
+            }
+
+            // Nội dung tin nhắn gửi sang Zalo
+            const noiDung = `🧋 ĐƠN ĐẶT TRÀ SỮA MỚI\n\n` +
+                            `👤 Khách: ${name}\n` +
+                            `📞 SĐT: ${phone}\n` +
+                            `📍 Địa chỉ: ${address}\n\n` +
+                            `📋 Món chọn:\n${chiTietMon}\n` +
+                            `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
+
+            // Mở ứng dụng Zalo gửi tin nhắn trực tiếp
+            const zaloUrl = `https://zalo.me/${SODIENTHOAI_ZALO}?text=${encodeURIComponent(noiDung)}`;
+            window.location.href = zaloUrl;
         }
 
         renderMenu();
     </script>
 </body>
 </html>
+
