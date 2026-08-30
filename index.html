@@ -1,4 +1,4 @@
-<! <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -28,15 +28,15 @@
             padding-bottom: 40px; 
         }
 
-        /* ---------------- HIỆU ỨNG LED NHÁY (BLINKING LED) ---------------- */
-        @keyframes ledBlink {
+        /* ---------------- HIỆU ỨNG CHỈ NHẤP NHÁY VIỀN BÊN NGOÀI ---------------- */
+        @keyframes borderLedBlink {
             0%, 100% {
-                opacity: 1;
-                filter: drop-shadow(0 0 8px var(--led-color)) drop-shadow(0 0 15px var(--led-color));
+                box-shadow: 0 0 12px var(--led-color), 0 0 4px var(--led-color);
+                border-color: var(--led-color);
             }
             50% {
-                opacity: 0.35;
-                filter: drop-shadow(0 0 2px var(--led-color));
+                box-shadow: 0 0 2px rgba(0,0,0,0.1);
+                border-color: rgba(200, 200, 200, 0.4);
             }
         }
 
@@ -48,10 +48,9 @@
             text-align: center; 
             border-radius: 0 0 24px 24px; 
             margin-bottom: 20px;
-            z-index: 1;
             --led-color: #ff007f;
             border: 3px solid var(--led-color);
-            animation: ledBlink 1.5s infinite ease-in-out;
+            animation: borderLedBlink 1.5s infinite ease-in-out;
         }
         .header h1 { 
             font-size: 28px; 
@@ -80,7 +79,7 @@
             padding: 14px;
             margin-bottom: 20px;
             border: 3px solid var(--led-color);
-            animation: ledBlink 1.4s infinite ease-in-out;
+            animation: borderLedBlink 1.4s infinite ease-in-out;
         }
 
         /* MÀU VIỀN LED NHÁY TỪNG DANH MỤC */
