@@ -42,11 +42,11 @@
         <input type="text" id="cus-name" placeholder="Tên khách hàng">
         <input type="tel" id="cus-phone" placeholder="Số điện thoại">
         <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng"></textarea>
-        <button class="btn-submit" onclick="guiZalo()">📲 CHUYỂN ĐƠN SANG ZALO</button>
+        <button class="btn-submit" onclick="copyVaMoZalo()">📲 GỬI ĐƠN QUA ZALO</button>
     </div>
 
     <script>
-        // ⚠️ THAY SỐ ĐIỆN THOẠI ZALO CỦA BẠN VÀO ĐÂY (Viết liền, ví dụ: 0987654321)
+        // SỬA SỐ ĐIỆN THOẠI ZALO CỦA BẠN VÀO ĐÂY
         const SDT_ZALO = "0886522140"; 
 
         const menu = [
@@ -104,7 +104,7 @@
             totalDiv.innerText = `Tổng: ${total.toLocaleString()} VNĐ`;
         }
 
-        function guiZalo() {
+        function copyVaMoZalo() {
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
             const address = document.getElementById('cus-address').value.trim();
@@ -124,23 +124,23 @@
                 const item = menu.find(m => m.id == id);
                 const itemTotal = item.price * cart[id];
                 total += itemTotal;
-                chiTietMon += `%0A- ${item.name} x${cart[id]}: ${itemTotal.toLocaleString()} VNĐ`;
+                chiTietMon += `- ${item.name} x${cart[id]}: ${itemTotal.toLocaleString()} VNĐ\n`;
             }
 
-            // Tạo đoạn văn bản định dạng URL mã hóa chuẩn
-            const textHeader = `🧋 %2AĐƠN ĐẶT TRÀ SỮA MỚI%2A%0A%0A`;
-            const textKhach = `👤 Khách hàng: ${encodeURIComponent(name)}%0A`;
-            const textSDT = `📞 Số điện thoại: ${encodeURIComponent(phone)}%0A`;
-            const textDC = `📍 Địa chỉ: ${encodeURIComponent(address)}%0A%0A`;
-            const textMon = `📋 Món đã chọn:${chiTietMon}%0A%0A`;
-            const textTong = `💰 %2ATỔNG TIỀN: ${total.toLocaleString()} VNĐ%2A`;
+            const tinNhan = `🧋 ĐƠN ĐẶT TRÀ SỮA MỚI\n\n` +
+                            `👤 Khách: ${name}\n` +
+                            `📞 SĐT: ${phone}\n` +
+                            `📍 Địa chỉ: ${address}\n\n` +
+                            `📋 Danh sách món:\n${chiTietMon}\n` +
+                            `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
 
-            const fullText = textHeader + textKhach + textSDT + textDC + textMon + textTong;
-
-            // Đường link ép Zalo tự điền tin nhắn vào khung chat
-            const zaloUrl = `https://zalo.me/${SDT_ZALO}?text=${fullText}`;
-            
-            window.open(zaloUrl, '_blank');
+            // Copy văn bản tự động
+            navigator.clipboard.writeText(tinNhan).then(() => {
+                alert("📋 Đã sao chép nội dung đơn hàng!\n\nZalo sẽ mở ngay bây giờ, bạn chỉ cần bấm DÁN (Paste) vào ô chat và gửi đi nhé.");
+                window.location.href = `https://zalo.me/${SDT_ZALO}`;
+            }).catch(() => {
+                window.location.href = `https://zalo.me/${SDT_ZALO}`;
+            });
         }
 
         renderMenu();
