@@ -10,9 +10,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <!-- APPLE TOUCH ICON (ĐỊNH DẠNG PNG BASE64 CHUẨN IOS) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSU6BAAAAABJRU5ErkJggg==" id="apple-icon">
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSU6BAAAAABJRU5ErkJggg==" id="fav-icon">
+    <!-- LINK LOGO CHUẨN TRỰC TIẾP DÀNH CHO APPLE TOUCH ICON & FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/3mB0z9J/tatimi-logo.jpg">
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/3mB0z9J/tatimi-logo.jpg">
 
     <style>
         :root {
@@ -65,13 +65,13 @@
         }
 
         .header .logo {
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 10px;
             border: 3px solid #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             background-color: #fff;
         }
 
@@ -322,8 +322,7 @@
 <body>
 
     <div class="header">
-        <canvas id="logoCanvas" width="300" height="300" style="display:none;"></canvas>
-        <img class="logo" id="main-logo" alt="TaTiMi Logo">
+        <img class="logo" src="https://i.ibb.co/3mB0z9J/tatimi-logo.jpg" alt="TaTiMi Logo">
         <h1>TaTiMi</h1>
         <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
         <div class="note-ship">🛵 Nhận giao hàng từ 2 ly trở lên</div>
@@ -388,70 +387,6 @@
     </div>
 
     <script>
-        // TỰ ĐỘNG CHUYỂN LOGO SANG PNG CHUẨN DÀNH CHO APPLE
-        function generatePngLogo() {
-            const canvas = document.getElementById('logoCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Vẽ Logo TaTiMi
-            ctx.fillStyle = '#fdf5f5';
-            ctx.fillRect(0, 0, 300, 300);
-
-            ctx.lineWidth = 6;
-            ctx.strokeStyle = '#5c3a21';
-            ctx.beginPath();
-            ctx.arc(150, 150, 140, 0, Math.PI * 2);
-            ctx.stroke();
-
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = '#f3a698';
-            ctx.beginPath();
-            ctx.arc(150, 150, 132, 0, Math.PI * 2);
-            ctx.stroke();
-
-            // Tai gà
-            ctx.fillStyle = '#f37b83';
-            ctx.beginPath();
-            ctx.arc(150, 60, 20, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Mặt gà
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = '#5c3a21';
-            ctx.beginPath();
-            ctx.arc(150, 115, 45, 0, Math.PI * 2);
-            ctx.stroke();
-
-            // Mắt
-            ctx.fillStyle = '#5c3a21';
-            ctx.beginPath();
-            ctx.arc(125, 115, 5, 0, Math.PI * 2);
-            ctx.arc(175, 115, 5, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Mỏ
-            ctx.fillStyle = '#fbb03b';
-            ctx.beginPath();
-            ctx.arc(150, 125, 8, 0, Math.PI);
-            ctx.fill();
-
-            // Chữ TaTiMi
-            ctx.fillStyle = '#5c3a21';
-            ctx.font = '900 42px -apple-system, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('TaTiMi', 150, 205);
-
-            ctx.font = 'bold 14px -apple-system, sans-serif';
-            ctx.fillText('CHICKEN & MILKTEA', 150, 245);
-
-            const pngData = canvas.toDataURL('image/png');
-            document.getElementById('main-logo').src = pngData;
-            document.getElementById('apple-icon').href = pngData;
-            document.getElementById('fav-icon').href = pngData;
-        }
-
-        generatePngLogo();
-
         const SDT_ZALO = "0886522140"; 
         const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
 
@@ -613,4 +548,3 @@
     </script>
 </body>
 </html>
-
