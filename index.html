@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TaTiMi - Chicken & Milk Tea</title>
 
+    <!-- HỖ TRỢ HIỂN THỊ LOGO TRÊN MÀN HÌNH CHÍNH (IOS & ANDROID) -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="TaTiMi">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <!-- LINK LOGO CHO APPLE TOUCH ICON & FAVICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
 
+    <!-- MANIFEST CHUẨN ĐỂ ANDROID VÀ IPHONE HIỂN THỊ LOGO KHI ĐƯA RA MÀN HÌNH CHÍNH -->
     <link rel="manifest" href='data:application/manifest+json,{"name":"TaTiMi Chicken & Milk Tea","short_name":"TaTiMi","start_url":".","display":"standalone","background_color":"#fdf5f5","theme_color":"#c88a58","icons":[{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"192x192","type":"image/jpeg"},{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"512x512","type":"image/jpeg"}]}'>
 
     <style>
@@ -157,7 +160,7 @@
             border: 2px solid #f3a698; 
         }
 
-        .card-cart, .card-delivery { 
+        .card-cart, .card-delivery, .card-payment { 
             --led-color: #00bcd4; 
             animation-duration: 1.4s;
         }
@@ -320,6 +323,38 @@
 
         .btn-submit:active { transform: scale(0.98); }
 
+        /* --- PHẦN CHUYỂN KHOẢN --- */
+        .bank-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .bank-row strong {
+            color: #2d3436;
+        }
+        .qr-box {
+            text-align: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #ddd;
+        }
+        .qr-img {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
         /* --- POPUP THÔNG BÁO --- */
         .modal-overlay {
             position: fixed;
@@ -386,6 +421,7 @@
 </head>
 <body>
 
+    <!-- MODAL POPUP HIỂN THỊ ẢNH THÔNG BÁO -->
     <div class="modal-overlay" id="noticeModal">
         <div class="notice-container">
             <button class="btn-close-modal" onclick="dongThongBao()">✕</button>
@@ -454,6 +490,34 @@
             <div class="btn-group">
                 <button class="btn-submit btn-zalo" onclick="guiDon('zalo')">📲 GỬI ĐƠN QUA ZALO</button>
                 <button class="btn-submit btn-mess" onclick="guiDon('messenger')">💬 GỬI ĐƠN QUA MESSENGER</button>
+            </div>
+        </div>
+
+        <!-- KHỐI THÔNG TIN CHUYỂN KHOẢN -->
+        <div class="led-box card-payment">
+            <div class="card-title" style="background: #27ae60;">💳 THÔNG TIN CHUYỂN KHOẢN</div>
+            <div class="bank-info">
+                <div class="bank-row">
+                    <span>Ngân hàng:</span>
+                    <strong>MB Bank (NHTM CP Quân Đội)</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Số tài khoản:</span>
+                    <strong style="color: #d63031; font-size: 16px;">0886522140</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Chủ tài khoản:</span>
+                    <strong>TATIMI CHICKEN & MILK TEA</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Nội dung chuyển khoản:</span>
+                    <strong style="color: #0068ff;" id="bank-memo">TenKhach_SDT</strong>
+                </div>
+                
+                <div class="qr-box">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Quét mã VietQR để chuyển khoản chính xác số tiền:</p>
+                    <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-0886522140-compact2.png?amount=0&addInfo=Thanh%20toan%20TaTiMi" alt="Mã QR Chuyển Khoản">
+                </div>
             </div>
         </div>
     </div>
@@ -547,6 +611,7 @@
                 cartDiv.className = 'cart-empty';
                 cartDiv.innerHTML = 'Chưa chọn món nào';
                 totalDiv.innerText = '0 VNĐ';
+                updateQR(0);
                 return;
             }
 
@@ -565,7 +630,24 @@
 
             cartDiv.innerHTML = html;
             totalDiv.innerText = `${total.toLocaleString()} VNĐ`;
+            updateQR(total);
         }
+
+        function updateQR(amount) {
+            const name = document.getElementById('cus-name').value.trim() || 'Khach';
+            const phone = document.getElementById('cus-phone').value.trim() || '';
+            const memo = `${name} ${phone}`.trim();
+            
+            document.getElementById('bank-memo').innerText = memo;
+            const qrUrl = `https://img.vietqr.io/image/MB-0886522140-compact2.png?amount=${amount}&addInfo=${encodeURIComponent('TATIMI ' + memo)}`;
+            document.getElementById('qr-code-img').src = qrUrl;
+        }
+
+        // Tự động cập nhật nội dung chuyển khoản khi khách nhập tên/sĐT
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('cus-name').addEventListener('input', () => updateCart());
+            document.getElementById('cus-phone').addEventListener('input', () => updateCart());
+        });
 
         function guiDon(nenTang) {
             const name = document.getElementById('cus-name').value.trim();
@@ -624,12 +706,10 @@
             renderCategory('latte', 'menu-latte');
             renderCategory('topping', 'menu-topping');
 
-            // Thời gian hết hạn: 23:59:59 ngày 03/09
             const currentYear = new Date().getFullYear();
-            const expireDate = new Date(currentYear, 8, 3, 23, 59, 59); // Tháng trong JS tính từ 0 (8 = Tháng 9)
+            const expireDate = new Date(currentYear, 8, 3, 23, 59, 59);
             const now = new Date();
 
-            // Nếu thời gian hiện tại vẫn trước 23:59:59 ngày 03/09 thì hiển thị Popup
             if (now <= expireDate) {
                 setTimeout(() => {
                     document.getElementById('noticeModal').classList.add('active');
