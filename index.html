@@ -1,43 +1,477 @@
-<!-- KHỐI ĐUA TOP MUA HÀNG -->
-<div class="led-box card-leaderboard">
-    <div class="card-title" style="background: linear-gradient(135deg, #ff9f43, #ff5252);">
-        <span>🏆 ĐUA TOP MUA HÀNG THÁNG 8</span>
-        <span style="font-size: 11px; background: rgba(255,255,255,0.3); padding: 2px 6px; border-radius: 6px;">LIVE</span>
-    </div>
-    
-    <div class="leaderboard-desc">
-        🎁 Top 3 khách hàng có tổng giá trị đơn cao nhất tháng sẽ nhận quà **TRÀ SỮA FREE 1L**!
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TaTiMi - Chicken & Milk Tea</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="TaTiMi">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
+
+    <link rel="manifest" href='data:application/manifest+json,{"name":"TaTiMi Chicken & Milk Tea","short_name":"TaTiMi","start_url":".","display":"standalone","background_color":"#fdf5f5","theme_color":"#c88a58","icons":[{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"192x192","type":"image/jpeg"},{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"512x512","type":"image/jpeg"}]}'>
+
+    <style>
+        :root {
+            --primary: #c88a58;
+            --primary-dark: #a06437;
+            --zalo-blue: #0068ff;
+            --bg-pink: #fdf5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --subtext: #666666;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            background-color: var(--bg-pink); 
+            color: var(--text); 
+            padding-bottom: 40px; 
+        }
+
+        @keyframes borderLedBlink {
+            0%, 100% {
+                box-shadow: 0 0 12px var(--led-color), 0 0 4px var(--led-color);
+                border-color: var(--led-color);
+            }
+            50% {
+                box-shadow: 0 0 2px rgba(0,0,0,0.1);
+                border-color: rgba(200, 200, 200, 0.4);
+            }
+        }
+
+        .header { 
+            position: relative;
+            background: linear-gradient(135deg, #fceae6, #f3d1c8); 
+            padding: 22px 20px; 
+            text-align: center; 
+            border-radius: 0 0 24px 24px; 
+            margin-bottom: 20px;
+            --led-color: #ff007f;
+            border: 3px solid var(--led-color);
+            animation: borderLedBlink 1.5s infinite ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background-color: #fff;
+        }
+
+        .header h1 { font-size: 28px; font-weight: 900; color: #8c532b; letter-spacing: 1px; }
+        .header p { font-size: 13px; color: #8c532b; margin-top: 4px; font-weight: 700; }
+        .header .note-ship { margin-top: 8px; background: #ff4757; color: #fff; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 20px; }
+
+        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        .led-box {
+            position: relative;
+            background: #fff;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 3px solid var(--led-color);
+            animation: borderLedBlink 1.4s infinite ease-in-out;
+        }
+
+        /* CARD LEADERBOARD */
+        .card-leaderboard { --led-color: #ff9f43; animation-duration: 1.1s; }
+        .leaderboard-desc {
+            font-size: 12px;
+            font-weight: 700;
+            color: #d63031;
+            background: #fff5f5;
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            border: 1px dashed #ff7675;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .rank-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .rank-1 { background: #fff9db; border: 1px solid #ffe066; font-weight: 800; color: #d9480f; }
+        .rank-2 { background: #f1f3f5; border: 1px solid #ced4da; font-weight: 700; }
+        .rank-3 { background: #fff0f6; border: 1px solid #fcc2d7; font-weight: 700; color: #c2255c; }
+
+        .rank-badge { font-size: 12px; }
+        .rank-name { flex: 1; margin: 0 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .rank-points { color: #d63031; font-weight: 800; }
+
+        /* CATEGORIES */
+        .card-trasua { --led-color: #e91e63; animation-duration: 1.2s; }
+        .card-trasua .card-title { background: linear-gradient(135deg, #d81b60, #8e24aa); }
+        .card-trasua .menu-item { background-color: #fff5f8; border: 2px solid #f0a3bd; }
+
+        .card-traicay { --led-color: #ff9800; animation-duration: 1.5s; }
+        .card-traicay .card-title { background: linear-gradient(135deg, #fb8c00, #f57c00); }
+        .card-traicay .menu-item { background-color: #fffbf0; border: 2px solid #ffbe76; }
+
+        .card-latte { --led-color: #4caf50; animation-duration: 1.3s; }
+        .card-latte .card-title { background: linear-gradient(135deg, #43a047, #2e7d32); }
+        .card-latte .menu-item { background-color: #f4faf2; border: 2px solid #91d18b; }
+
+        .card-topping { --led-color: #ff3d00; animation-duration: 1.6s; }
+        .card-topping .card-title { background: linear-gradient(135deg, #e53935, #d81b60); }
+        .card-topping .menu-item { background-color: #fdf2f0; border: 2px solid #f3a698; }
+
+        .card-cart, .card-delivery, .card-payment { --led-color: #00bcd4; animation-duration: 1.4s; }
+
+        .card-title { 
+            font-size: 16px; font-weight: 800; color: white; padding: 10px 16px; 
+            border-radius: 12px; margin-bottom: 14px; display: flex; align-items: center; 
+            justify-content: space-between; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-list { display: flex; flex-direction: column; gap: 12px; }
+        .menu-item { border-radius: 14px; padding: 12px 14px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04); }
+        .item-name { font-weight: 800; font-size: 15px; color: #2d3436; margin-bottom: 10px; }
+        .size-options { display: flex; gap: 10px; }
+
+        .btn-size { 
+            flex: 1; background: #ffffff; border: 1.5px solid #cbd5e1; padding: 8px 12px; 
+            border-radius: 10px; font-size: 13px; font-weight: 700; color: #333; cursor: pointer; 
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .btn-size:active { background: #e1b12c; color: white; transform: scale(0.97); }
+        .btn-size span.price { color: #d63031; font-weight: 800; }
+
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; background: #f8f9fa; padding: 8px 12px; border-radius: 8px; }
+        .cart-empty { text-align: center; color: var(--subtext); font-size: 13px; padding: 10px 0; }
+        .divider { height: 1px; background: #eee; margin: 12px 0; }
+        .total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #d63031; padding: 0 4px; }
+        .btn-clear { background: none; border: none; color: #d63031; font-size: 12px; cursor: pointer; text-decoration: underline; font-weight: 600; }
+
+        .delivery-note { font-size: 13px; font-weight: 700; color: #d63031; background: #fff0f0; padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; border: 1px dashed #ff7675; text-align: center; }
+
+        .input-group { margin-bottom: 10px; }
+        input, textarea { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
+        input:focus, textarea:focus { border-color: var(--primary); }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        
+        .btn-submit { 
+            width: 100%; color: white; border: none; padding: 14px; border-radius: 12px; 
+            font-weight: 800; font-size: 15px; cursor: pointer; display: flex; align-items: center; 
+            justify-content: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-zalo { background: var(--zalo-blue); }
+        .btn-mess { background: linear-gradient(135deg, #0084ff, #a832fe, #ff5252); }
+        .btn-bank-app { background: linear-gradient(135deg, #10b981, #059669); margin-top: 10px; }
+        .btn-submit:active { transform: scale(0.98); }
+
+        .bank-info { background: #f8f9fa; border-radius: 12px; padding: 12px; font-size: 14px; line-height: 1.6; }
+        .bank-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .bank-row strong { color: #2d3436; }
+        
+        .qr-box { text-align: center; margin-top: 10px; }
+        .qr-img { max-width: 260px; width: 100%; height: auto; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+
+        .screenshot-guide {
+            font-size: 12px;
+            color: #d63031;
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px dashed #ff7675;
+            margin-bottom: 8px;
+        }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; padding: 15px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .notice-container { position: relative; max-width: 420px; width: 100%; transform: scale(0.8); transition: transform 0.3s ease; }
+        .modal-overlay.active .notice-container { transform: scale(1); }
+        .notice-img { width: 100%; height: auto; border-radius: 20px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+        .btn-close-modal {
+            position: absolute; top: -12px; right: -12px; background: #ff4757; color: white;
+            border: 2px solid #fff; width: 32px; height: 32px; border-radius: 50%; font-weight: bold;
+            font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="noticeModal">
+        <div class="notice-container">
+            <button class="btn-close-modal" onclick="dongThongBao()">✕</button>
+            <img class="notice-img" src="https://i.ibb.co/j9VDSPtz/att-Q-C3-CO2-Pn-Oh-Ys-Mz-Au5r-Qy1-DJm-RKc-NN3dio-Bomkgqw.jpg" alt="Thông Báo - TaTiMi">
+        </div>
     </div>
 
-    <div class="leaderboard-list">
-        <div class="rank-item rank-1">
-            <span class="rank-badge">🥇 Top 1</span>
-            <span class="rank-name">Nguyễn Văn A (0903***123)</span>
-            <span class="rank-points">1.250.000đ</span>
+    <div class="header">
+        <img class="logo" src="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg" alt="TaTiMi Logo">
+        <h1>TaTiMi</h1>
+        <p>Chicken & Milk Tea - Trà Sữa 1L Chỉ Từ 25K</p>
+        <div class="note-ship">🛵 Nhận giao hàng từ 2 ly trở lên</div>
+    </div>
+
+    <div class="container">
+        
+        <!-- KHỐI ĐUA TOP MUA HÀNG -->
+        <div class="led-box card-leaderboard">
+            <div class="card-title" style="background: linear-gradient(135deg, #ff9f43, #ff5252);">
+                <span>🏆 ĐUA TOP MUA HÀNG HÀNG THÁNG</span>
+                <span style="font-size: 11px; background: rgba(255,255,255,0.3); padding: 2px 6px; border-radius: 6px;">LIVE</span>
+            </div>
+            
+            <div class="leaderboard-desc">
+                🎁 Top 3 khách hàng tích lũy cao nhất tháng sẽ nhận quà **TRÀ SỮA FREE 1L**!
+            </div>
+
+            <div class="leaderboard-list">
+                <div class="rank-item rank-1">
+                    <span class="rank-badge">🥇 Top 1</span>
+                    <span class="rank-name">Nguyễn Văn A (0903***123)</span>
+                    <span class="rank-points">1.250.000đ</span>
+                </div>
+                <div class="rank-item rank-2">
+                    <span class="rank-badge">🥈 Top 2</span>
+                    <span class="rank-name">Trần Thị B (0988***456)</span>
+                    <span class="rank-points">980.000đ</span>
+                </div>
+                <div class="rank-item rank-3">
+                    <span class="rank-badge">🥉 Top 3</span>
+                    <span class="rank-name">Lê Hoàng C (0912***789)</span>
+                    <span class="rank-points">750.000đ</span>
+                </div>
+                <div class="rank-item">
+                    <span class="rank-badge">Top 4</span>
+                    <span class="rank-name">Phạm Thu D (0977***321)</span>
+                    <span class="rank-points">520.000đ</span>
+                </div>
+                <div class="rank-item">
+                    <span class="rank-badge">Top 5</span>
+                    <span class="rank-name">Vũ Minh E (0934***654)</span>
+                    <span class="rank-points">410.000đ</span>
+                </div>
+            </div>
         </div>
-        <div class="rank-item rank-2">
-            <span class="rank-badge">🥈 Top 2</span>
-            <span class="rank-name">Trần Thị B (0988***456)</span>
-            <span class="rank-points">980.000đ</span>
+
+        <div class="led-box card-trasua">
+            <div class="card-title">🧋 TRÀ SỮA</div>
+            <div id="menu-trasua" class="menu-list"></div>
         </div>
-        <div class="rank-item rank-3">
-            <span class="rank-badge">🥉 Top 3</span>
-            <span class="rank-name">Lê Hoàng C (0912***789)</span>
-            <span class="rank-points">750.000đ</span>
+
+        <div class="led-box card-traicay">
+            <div class="card-title">🍑 TRÀ TRÁI CÂY</div>
+            <div id="menu-traicay" class="menu-list"></div>
         </div>
-        <div class="rank-item">
-            <span class="rank-badge">Top 4</span>
-            <span class="rank-name">Phạm Thu D (0977***321)</span>
-            <span class="rank-points">520.000đ</span>
+
+        <div class="led-box card-latte">
+            <div class="card-title">🍵 LATTE</div>
+            <div id="menu-latte" class="menu-list"></div>
         </div>
-        <div class="rank-item">
-            <span class="rank-badge">Top 5</span>
-            <span class="rank-name">Vũ Minh E (0934***654)</span>
-            <span class="rank-points">410.000đ</span>
+
+        <div class="led-box card-topping">
+            <div class="card-title">🧆 TOPPING THÊM</div>
+            <div id="menu-topping" class="menu-list"></div>
+        </div>
+
+        <div class="led-box card-cart">
+            <div class="card-title" style="background: #2d3436;">
+                <span>🛒 ĐƠN HÀNG CỦA BẠN</span>
+                <button class="btn-clear" onclick="xoaGioHang()">Xóa tất cả</button>
+            </div>
+            <div id="cart-list" class="cart-empty">Chưa chọn món nào</div>
+            <div class="divider"></div>
+            <div class="total-row">
+                <span>Tổng cộng:</span>
+                <span id="total-price">0 VNĐ</span>
+            </div>
+        </div>
+
+        <div class="led-box card-delivery">
+            <div class="card-title" style="background: #a06437;">🚚 THÔNG TIN GIAO HÀNG</div>
+            <div class="delivery-note">⚠️ Lưu ý: Quán chỉ nhận giao hàng từ 2 ly trở lên!</div>
+
+            <div class="input-group">
+                <input type="text" id="cus-name" placeholder="Tên khách hàng...">
+            </div>
+            <div class="input-group">
+                <input type="tel" id="cus-phone" placeholder="Số điện thoại...">
+            </div>
+            <div class="input-group">
+                <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng..."></textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-submit btn-zalo" onclick="guiDon('zalo')">📲 GỬI ĐƠN QUA ZALO</button>
+                <button class="btn-submit btn-mess" onclick="guiDon('messenger')">💬 GỬI ĐƠN QUA MESSENGER</button>
+            </div>
+        </div>
+
+        <!-- KHỐI THANH TOÁN QR -->
+        <div class="led-box card-payment">
+            <div class="card-title" style="background: #27ae60;">💳 THÔNG TIN CHUYỂN KHOẢN</div>
+            <div class="bank-info">
+                <div class="bank-row">
+                    <span>Ngân hàng:</span>
+                    <strong>MB Bank (NHTM CP Quân Đội)</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Số tài khoản:</span>
+                    <strong style="color: #d63031; font-size: 16px;">9628062009</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Chủ tài khoản:</span>
+                    <strong>VÕ THỊ NGỌC TRÂM</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Nội dung CK:</span>
+                    <strong style="color: #0068ff;" id="bank-memo">TATIMI DON HANG</strong>
+                </div>
+
+                <div class="qr-box">
+                    <div class="screenshot-guide">📸 Bạn chụp màn hình mã QR bên dưới rồi mở App ngân hàng quét từ bộ sưu tập nhé!</div>
+                    <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&addInfo=TATIMI%20DON%20HANG&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
+                    
+                    <button class="btn-submit btn-bank-app" onclick="moAppNganHangKhach()">🏛️ MỞ ỨNG DỤNG NGÂN HÀNG</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-  const itemTotal = item.price * item.qty;
+
+    <script>
+        const SDT_ZALO = "0886522140"; 
+        const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
+
+        const menuData = {
+            trasua: [
+                { name: "Truyền thống", prices: { "500ml": "15k", "1L": "25k" }, rawPrices: { "500ml": 15000, "1L": 25000 } },
+                { name: "Trà sữa thái xanh", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa kem trứng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Nhài hoàng kim", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Sữa tươi trân châu đường đen", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa dâu hạt nổ", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà sữa phô mai tươi", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa phô mai Jerry", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà sữa Full Topping", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Lục trà sữa xoài", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Sữa tươi trân châu đường đen kem trứng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } }
+            ],
+            traicay: [
+                { name: "Trà thanh đào", prices: { "500ml": "15k", "1L": "30k" }, rawPrices: { "500ml": 15000, "1L": 30000 } },
+                { name: "Trà xoài kem cheese", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Trà olong sen vàng", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Trà tắc", prices: { "800ml": "10k", "1L": "15k" }, rawPrices: { "800ml": 10000, "1L": 15000 } }
+            ],
+            latte: [
+                { name: "Matcha Latte", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Khoai môn Latte", prices: { "500ml": "20k", "1L": "35k" }, rawPrices: { "500ml": 20000, "1L": 35000 } },
+                { name: "Matcha / Khoai Môn Kem muối", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } },
+                { name: "Matcha / Khoai Môn Kem Cheese", prices: { "500ml": "25k", "1L": "40k" }, rawPrices: { "500ml": 25000, "1L": 40000 } }
+            ],
+            topping: [
+                { name: "Cheese ball", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Phô mai Jerry", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Pudding trứng / matcha", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Kem cheese / muối / trứng", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } },
+                { name: "Pudding phô mai tươi / mặn", prices: { "Thêm": "6k" }, rawPrices: { "Thêm": 6000 } },
+                { name: "Trân châu đen", prices: { "Thêm": "5k" }, rawPrices: { "Thêm": 5000 } }
+            ]
+        };
+
+        let cart = [];
+        let currentTotal = 0;
+
+        function renderCategory(catKey, elementId) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = menuData[catKey].map((item, idx) => {
+                const btnHtml = Object.keys(item.prices).map(size => `
+                    <button class="btn-size" onclick="addToCart('${catKey}', ${idx}, '${size}')">
+                        <span>+ ${size}</span>
+                        <span class="price">${item.prices[size]}</span>
+                    </button>
+                `).join('');
+
+                return `
+                    <div class="menu-item">
+                        <div class="item-name">${item.name}</div>
+                        <div class="size-options">${btnHtml}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function addToCart(catKey, index, size) {
+            const item = menuData[catKey][index];
+            const price = item.rawPrices[size];
+            const cartKey = `${item.name} (${size})`;
+
+            const existing = cart.find(i => i.key === cartKey);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ key: cartKey, name: item.name, size: size, price: price, qty: 1 });
+            }
+            updateCart();
+        }
+
+        function xoaGioHang() {
+            cart = [];
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartDiv = document.getElementById('cart-list');
+            const totalDiv = document.getElementById('total-price');
+            currentTotal = 0;
+
+            if (cart.length === 0) {
+                cartDiv.className = 'cart-empty';
+                cartDiv.innerHTML = 'Chưa chọn món nào';
+                totalDiv.innerText = '0 VNĐ';
+                updateQR(0);
+                return;
+            }
+
+            cartDiv.className = '';
+            let html = '';
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
                 currentTotal += itemTotal;
                 html += `
                     <div class="cart-item">
