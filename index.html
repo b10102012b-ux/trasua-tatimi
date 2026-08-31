@@ -320,6 +320,7 @@
 
         .btn-zalo { background: var(--zalo-blue); }
         .btn-mess { background: linear-gradient(135deg, #0084ff, #a832fe, #ff5252); }
+        .btn-pay { background: linear-gradient(135deg, #10b981, #059669); }
 
         .btn-submit:active { transform: scale(0.98); }
 
@@ -514,8 +515,12 @@
                     <strong style="color: #0068ff;" id="bank-memo">---</strong>
                 </div>
                 
+                <div style="margin-top: 10px;">
+                    <button class="btn-submit btn-pay" onclick="chuyenKhoanNgay()">💸 CHUYỂN KHOẢN NGAY</button>
+                </div>
+
                 <div class="qr-box">
-                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Mã VietQR tự động cập nhật số tiền & thông tin khách:</p>
+                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Hoặc quét mã VietQR (Tự cập nhật tiền & thông tin):</p>
                     <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
                 </div>
             </div>
@@ -563,6 +568,7 @@
         };
 
         let cart = [];
+        let currentTotal = 0;
 
         function renderCategory(catKey, elementId) {
             const container = document.getElementById(elementId);
@@ -605,7 +611,7 @@
         function updateCart() {
             const cartDiv = document.getElementById('cart-list');
             const totalDiv = document.getElementById('total-price');
-            let total = 0;
+            currentTotal = 0;
 
             if (cart.length === 0) {
                 cartDiv.className = 'cart-empty';
@@ -619,7 +625,7 @@
             let html = '';
             cart.forEach(item => {
                 const itemTotal = item.price * item.qty;
-                total += itemTotal;
+                currentTotal += itemTotal;
                 html += `
                     <div class="cart-item">
                         <span>${item.name} [<b>${item.size}</b>] x<b>${item.qty}</b></span>
@@ -629,20 +635,33 @@
             });
 
             cartDiv.innerHTML = html;
-            totalDiv.innerText = `${total.toLocaleString()} VNĐ`;
-            updateQR(total);
+            totalDiv.innerText = `${currentTotal.toLocaleString()} VNĐ`;
+            updateQR(currentTotal);
         }
 
-        // CẬP NHẬT QR CHỈ DÙNG TÊN + SĐT CỦA KHÁCH HÀNG
-        function updateQR(amount) {
+        function getMemo() {
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
-            
-            let memo = `${name} ${phone}`.trim();
+            return `${name} ${phone}`.trim();
+        }
 
+        function updateQR(amount) {
+            const memo = getMemo();
             document.getElementById('bank-memo').innerText = memo || "---";
             const qrUrl = `https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent("VO THI NGOC TRAM")}`;
             document.getElementById('qr-code-img').src = qrUrl;
+        }
+
+        /* --- XỬ LÝ NÚT CHUYỂN KHOẢN NGAY --- */
+        function chuyenKhoanNgay() {
+            if (currentTotal <= 0) {
+                alert("Vui lòng chọn món trước khi chuyển khoản!");
+                return;
+            }
+            const memo = getMemo();
+            // ĐƯỜNG DẪN TỰ ĐỘNG CHUYỂN TỚI TRANG THANH TOÁN QUỐC GIA VIETQR
+            const payUrl = `https://dl.vietqr.io/pay?app=mb&ba=9628062009@mb&am=${currentTotal}&tn=${encodeURIComponent(memo)}`;
+            window.open(payUrl, '_blank');
         }
 
         function guiDon(nenTang) {
@@ -691,7 +710,6 @@
             }
         }
 
-        /* --- XỬ LÝ POPUP THÔNG BÁO TỰ ĐỘNG TẮT SAU HẾT NGÀY 3/9 --- */
         function dongThongBao() {
             document.getElementById('noticeModal').classList.remove('active');
         }
@@ -702,7 +720,6 @@
             renderCategory('latte', 'menu-latte');
             renderCategory('topping', 'menu-topping');
 
-            // Lắng nghe sự kiện gõ thông tin của khách để cập nhật mã QR liên tục
             document.getElementById('cus-name').addEventListener('input', () => updateCart());
             document.getElementById('cus-phone').addEventListener('input', () => updateCart());
 
