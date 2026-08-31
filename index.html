@@ -652,16 +652,35 @@
             document.getElementById('qr-code-img').src = qrUrl;
         }
 
-        /* --- XỬ LÝ NÚT CHUYỂN KHOẢN NGAY --- */
+        /* --- XỬ LÝ CHUYỂN KHOẢN NGAY (TỰ SAO CHÉP LỜI NHẮN & MỞ APP/LINK) --- */
         function chuyenKhoanNgay() {
             if (currentTotal <= 0) {
                 alert("Vui lòng chọn món trước khi chuyển khoản!");
                 return;
             }
+
+            const name = document.getElementById('cus-name').value.trim();
+            const phone = document.getElementById('cus-phone').value.trim();
+
+            if (!name || !phone) {
+                alert("Vui lòng nhập Tên và Số điện thoại trước khi chuyển khoản!");
+                return;
+            }
+
             const memo = getMemo();
-            // ĐƯỜNG DẪN TỰ ĐỘNG CHUYỂN TỚI TRANG THANH TOÁN QUỐC GIA VIETQR
             const payUrl = `https://dl.vietqr.io/pay?app=mb&ba=9628062009@mb&am=${currentTotal}&tn=${encodeURIComponent(memo)}`;
-            window.open(payUrl, '_blank');
+
+            // Tự động sao chép Nội dung chuyển khoản (Tên + SĐT) trước khi mở link
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(memo).then(() => {
+                    alert(`📋 Đã copy nội dung: "${memo}"\n\nHệ thống sẽ mở ứng dụng thanh toán. Nếu App không tự điền, bạn chỉ cần dán (Paste) vào ô Nội dung nhé!`);
+                    window.open(payUrl, '_blank');
+                }).catch(() => {
+                    window.open(payUrl, '_blank');
+                });
+            } else {
+                window.open(payUrl, '_blank');
+            }
         }
 
         function guiDon(nenTang) {
