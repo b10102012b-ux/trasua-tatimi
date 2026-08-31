@@ -93,7 +93,27 @@
             animation: borderLedBlink 1.4s infinite ease-in-out;
         }
 
-        /* CARD LEADERBOARD */
+        /* KHỐI KHUYẾN MÃI & ĐUA TOP */
+        .card-promo {
+            --led-color: #e74c3c;
+            animation-duration: 1.2s;
+            background: linear-gradient(135deg, #fff5f5, #ffffff);
+            text-align: center;
+        }
+        .promo-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #c0392b;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .promo-sub {
+            font-size: 13px;
+            font-weight: 700;
+            color: #d35400;
+            line-height: 1.4;
+        }
+
         .card-leaderboard { --led-color: #ff9f43; animation-duration: 1.1s; }
         .leaderboard-desc {
             font-size: 12px;
@@ -105,6 +125,7 @@
             margin-bottom: 10px;
             text-align: center;
             border: 1px dashed #ff7675;
+            line-height: 1.5;
         }
 
         .leaderboard-list {
@@ -129,8 +150,17 @@
         .rank-3 { background: #fff0f6; border: 1px solid #fcc2d7; font-weight: 700; color: #c2255c; }
 
         .rank-badge { font-size: 12px; }
-        .rank-name { flex: 1; margin: 0 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .rank-points { color: #d63031; font-weight: 800; }
+        .rank-prize {
+            font-size: 11px;
+            background: #ff4757;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+            margin-left: 4px;
+        }
+        .rank-name { flex: 1; margin: 0 10px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: #888; font-style: italic; text-align: right; }
+        .rank-points { color: #888; font-weight: 700; margin-left: 8px; }
 
         /* CATEGORIES */
         .card-trasua { --led-color: #e91e63; animation-duration: 1.2s; }
@@ -250,42 +280,59 @@
 
     <div class="container">
         
-        <!-- KHỐI ĐUA TOP MUA HÀNG -->
-        <div class="led-box card-leaderboard">
-            <div class="card-title" style="background: linear-gradient(135deg, #ff9f43, #ff5252);">
-                <span>🏆 ĐUA TOP MUA HÀNG HÀNG THÁNG</span>
-                <span style="font-size: 11px; background: rgba(255,255,255,0.3); padding: 2px 6px; border-radius: 6px;">LIVE</span>
-            </div>
-            
-            <div class="leaderboard-desc">
-                🎁 Top 3 khách hàng tích lũy cao nhất tháng sẽ nhận quà **TRÀ SỮA FREE 1L**!
+        <!-- KHỐI ĐUA TOP & BANNER (SẼ TỰ ĐỘNG BIẾN MẤT KHI HẾT THÁNG 9) -->
+        <div id="dua-top-section">
+            <div class="led-box card-promo">
+                <div class="promo-title">🇻🇳 MỪNG ĐẠI LỄ QUỐC KHÁNH 2/9 🇻🇳</div>
+                <div class="promo-sub">🎁 KHUYẾN MÃI ĐỦ CẢ THÁNG 9/2026 🎁<br>Đua top tích điểm - Nhận ngay Voucher cực đỉnh!</div>
             </div>
 
-            <div class="leaderboard-list">
-                <div class="rank-item rank-1">
-                    <span class="rank-badge">🥇 Top 1</span>
-                    <span class="rank-name">Nguyễn Văn A (0903***123)</span>
-                    <span class="rank-points">1.250.000đ</span>
+            <div class="led-box card-leaderboard">
+                <div class="card-title" style="background: linear-gradient(135deg, #ff9f43, #ff5252);">
+                    <span>🏆 BẢNG ĐUA TOP THÁNG 9/2026</span>
+                    <span style="font-size: 11px; background: rgba(255,255,255,0.3); padding: 2px 6px; border-radius: 6px;">LIVE</span>
                 </div>
-                <div class="rank-item rank-2">
-                    <span class="rank-badge">🥈 Top 2</span>
-                    <span class="rank-name">Trần Thị B (0988***456)</span>
-                    <span class="rank-points">980.000đ</span>
+                
+                <div class="leaderboard-desc">
+                    🔥 Mua hàng tích điểm hết tháng 9/2026:<br>
+                    🥇 <b>Top 1:</b> Voucher 15% | 🥈 <b>Top 2:</b> Voucher 10% | 🥉 <b>Top 3:</b> Voucher 5%
                 </div>
-                <div class="rank-item rank-3">
-                    <span class="rank-badge">🥉 Top 3</span>
-                    <span class="rank-name">Lê Hoàng C (0912***789)</span>
-                    <span class="rank-points">750.000đ</span>
-                </div>
-                <div class="rank-item">
-                    <span class="rank-badge">Top 4</span>
-                    <span class="rank-name">Phạm Thu D (0977***321)</span>
-                    <span class="rank-points">520.000đ</span>
-                </div>
-                <div class="rank-item">
-                    <span class="rank-badge">Top 5</span>
-                    <span class="rank-name">Vũ Minh E (0934***654)</span>
-                    <span class="rank-points">410.000đ</span>
+
+                <div class="leaderboard-list">
+                    <div class="rank-item rank-1">
+                        <div>
+                            <span class="rank-badge">🥇 Top 1</span>
+                            <span class="rank-prize">Voucher 15%</span>
+                        </div>
+                        <span class="rank-name">Vị trí đang chờ...</span>
+                        <span class="rank-points">0đ</span>
+                    </div>
+                    <div class="rank-item rank-2">
+                        <div>
+                            <span class="rank-badge">🥈 Top 2</span>
+                            <span class="rank-prize">Voucher 10%</span>
+                        </div>
+                        <span class="rank-name">Vị trí đang chờ...</span>
+                        <span class="rank-points">0đ</span>
+                    </div>
+                    <div class="rank-item rank-3">
+                        <div>
+                            <span class="rank-badge">🥉 Top 3</span>
+                            <span class="rank-prize">Voucher 5%</span>
+                        </div>
+                        <span class="rank-name">Vị trí đang chờ...</span>
+                        <span class="rank-points">0đ</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-badge">Top 4</span>
+                        <span class="rank-name">Vị trí đang chờ...</span>
+                        <span class="rank-points">0đ</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-badge">Top 5</span>
+                        <span class="rank-name">Vị trí đang chờ...</span>
+                        <span class="rank-points">0đ</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -343,7 +390,6 @@
             </div>
         </div>
 
-        <!-- KHỐI THANH TOÁN QR -->
         <div class="led-box card-payment">
             <div class="card-title" style="background: #27ae60;">💳 THÔNG TIN CHUYỂN KHOẢN</div>
             <div class="bank-info">
@@ -414,7 +460,10 @@
             ]
         };
 
-        let cart = [];
+        // Đơn hàng mặc định (1 đơn mẫu cho tháng 9)
+        let cart = [
+            { key: "Trà sữa Full Topping (1L)", name: "Trà sữa Full Topping", size: "1L", price: 40000, qty: 1 }
+        ];
         let currentTotal = 0;
 
         function renderCategory(catKey, elementId) {
@@ -532,7 +581,7 @@
                 chiTietMon += `- ${item.name} (${item.size}) x${item.qty}: ${itemTotal.toLocaleString()} VNĐ\n`;
             });
 
-            const tinNhan = `🧋 ĐƠN ĐẶT HÀNG - TATIMI\n\n` +
+            const tinNhan = `🧋 ĐƠN ĐẶT HÀNG THÁNG 9/2026 - TATIMI\n\n` +
                             `👤 Khách hàng: ${name}\n` +
                             `📞 Số điện thoại: ${phone}\n` +
                             `📍 Địa chỉ: ${address}\n\n` +
@@ -564,24 +613,36 @@
             document.getElementById('noticeModal').classList.remove('active');
         }
 
+        function kiemTraHanDuaTop() {
+            // Hạn chót đua top: 23:59:59 ngày 30/09/2026
+            const expireDate = new Date(2026, 8, 30, 23, 59, 59); // Tháng 9 index là 8
+            const now = new Date();
+
+            // Nếu thời gian hiện tại vượt quá mốc trên -> Tự biến mất khối Đua Top
+            if (now > expireDate) {
+                const duaTopElem = document.getElementById('dua-top-section');
+                if (duaTopElem) {
+                    duaTopElem.style.display = 'none';
+                }
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            kiemTraHanDuaTop(); // Kiểm tra điều kiện tự ẩn khối đua top
             renderCategory('trasua', 'menu-trasua');
             renderCategory('traicay', 'menu-traicay');
             renderCategory('latte', 'menu-latte');
             renderCategory('topping', 'menu-topping');
 
+            updateCart(); // Nạp sẵn 1 đơn tháng 9/2026
+
             document.getElementById('cus-name').addEventListener('input', () => updateCart());
             document.getElementById('cus-phone').addEventListener('input', () => updateCart());
 
-            const currentYear = new Date().getFullYear();
-            const expireDate = new Date(currentYear, 8, 3, 23, 59, 59);
-            const now = new Date();
-
-            if (now <= expireDate) {
-                setTimeout(() => {
-                    document.getElementById('noticeModal').classList.add('active');
-                }, 500);
-            }
+            // Tự động mở Modal Thông báo khi vào trang
+            setTimeout(() => {
+                document.getElementById('noticeModal').classList.add('active');
+            }, 500);
         });
     </script>
 </body>
