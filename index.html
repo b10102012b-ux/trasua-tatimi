@@ -323,14 +323,14 @@
 
         .btn-submit:active { transform: scale(0.98); }
 
-        /* --- STYLES CHO POPUP THÔNG BÁO NGHĨ LỄ --- */
+        /* --- POPUP THÔNG BÁO DÙNG ẢNH TRỰC TIẾP --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -346,257 +346,54 @@
             pointer-events: auto;
         }
 
-        .notice-card {
-            background-color: #fff4f4;
-            border: 2px solid #f9cdcd;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            padding: 25px 18px 18px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        .notice-container {
             position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-width: 420px;
+            width: 100%;
             transform: scale(0.8);
             transition: transform 0.3s ease;
         }
 
-        .modal-overlay.active .notice-card {
+        .modal-overlay.active .notice-container {
             transform: scale(1);
+        }
+
+        .notice-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .btn-close-modal {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #ff7675;
+            top: -12px;
+            right: -12px;
+            background: #ff4757;
             color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
+            border: 2px solid #fff;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .notice-card .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .notice-card .logo-badge {
-            border: 1.5px solid #e27d7d;
-            border-radius: 50px;
-            padding: 2px 14px;
-            background: #fff;
-        }
-
-        .notice-card .logo-text {
-            font-size: 22px;
-            font-weight: 800;
-            color: #333;
-        }
-
-        .notice-card .title-banner {
-            background-color: #ffcccc;
-            color: #333;
-            font-size: 22px;
-            font-weight: 900;
-            padding: 6px 20px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .notice-card .sub-title {
-            color: #d32f2f;
             font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            z-index: 10;
         }
-
-        .notice-card .flag-icon {
-            width: 20px;
-            height: 14px;
-            background-color: #da251d;
-            position: relative;
-            display: inline-block;
-            border-radius: 2px;
-        }
-
-        .notice-card .flag-icon::after {
-            content: "★";
-            color: #ffff00;
-            font-size: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .notice-card .off-box {
-            border: 2px dashed #f5a3a3;
-            border-radius: 16px;
-            padding: 10px;
-            margin-bottom: 12px;
-            background-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .notice-card .off-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .notice-card .off-dates {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .notice-card .date-cloud {
-            background-color: #f76c6c;
-            color: white;
-            font-size: 20px;
-            font-weight: 900;
-            padding: 4px 16px;
-            border-radius: 20px;
-            box-shadow: 0 3px 0 #d95353;
-        }
-
-        .notice-card .and-text {
-            font-size: 15px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .notice-card .promo-header {
-            font-size: 15px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 4px;
-        }
-
-        .notice-card .promo-banner {
-            background-color: #f76c6c;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            padding: 4px 16px;
-            border-radius: 15px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-
-        .notice-card .promo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .notice-card .promo-grid::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            border-left: 2px dashed #f5a3a3;
-            transform: translateX(-50%);
-        }
-
-        .notice-card .promo-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .notice-card .item-title {
-            font-size: 13px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .notice-card .item-title.matcha { color: #4a7c59; }
-        .notice-card .item-title.milktea { color: #5d4037; }
-
-        .notice-card .gift-badge {
-            background-color: #4a7c59;
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-bottom: 2px;
-        }
-
-        .notice-card .gift-badge.red { background-color: #f76c6c; }
-        .notice-card .gift-name { font-size: 13px; font-weight: 800; color: #333; }
-
-        .notice-card .footer-text {
-            font-size: 12px;
-            color: #555;
-            line-height: 1.4;
-        }
-
-        .notice-card .heart-icon { color: #f76c6c; }
     </style>
 </head>
 <body>
 
-    <!-- MODAL POPUP THÔNG BÁO NGHỈ LỄ -->
+    <!-- MODAL POPUP HIỂN THỊ ẢNH THÔNG BÁO -->
     <div class="modal-overlay" id="noticeModal">
-        <div class="notice-card">
+        <div class="notice-container">
             <button class="btn-close-modal" onclick="dongThongBao()">✕</button>
-            <div class="logo-container">
-                <div class="logo-badge">
-                    <span class="logo-text">TaTiMi</span>
-                </div>
-            </div>
-            <div class="title-banner">THÔNG BÁO</div>
-            <div class="sub-title">
-                Mừng Đại Lễ <span class="flag-icon"></span>
-            </div>
-            <div class="off-box">
-                <div class="off-title">Quán sẽ NGHỈ 2 ngày:</div>
-                <div class="off-dates">
-                    <div class="date-cloud">31/8</div>
-                    <span class="and-text">và</span>
-                    <div class="date-cloud">2/9</div>
-                </div>
-            </div>
-            <div class="promo-header">Duy nhất ngày <span style="color: #d32f2f;">1/9</span></div>
-            <div class="promo-banner">QUÁN CÓ ƯU ĐÃI</div>
-            <div class="promo-grid">
-                <div class="promo-item">
-                    <div class="item-title matcha">MUA<br>MATCHA LATTE</div>
-                    <div class="gift-badge">TẶNG</div>
-                    <div class="gift-name">KEM MUỐI</div>
-                </div>
-                <div class="promo-item">
-                    <div class="item-title milktea">MUA<br>TRÀ SỮA</div>
-                    <div class="gift-badge red">TẶNG</div>
-                    <div class="gift-name">PUDDING</div>
-                </div>
-            </div>
-            <div class="footer-text">
-                Rất mong quý khách thông cảm!<br>
-                Cảm ơn mọi người đã luôn ủng hộ TaTiMi <span class="heart-icon">♥</span>
-            </div>
+            <img class="notice-img" src="https://i.ibb.co/d48NSsTZ/att-nj-Xqs-GWe7-Jq-b-T7-CPGYmh0mh-VRq-M9-CFk-YMQss-IWy-WYo.jpg" alt="Thông Báo - TaTiMi">
         </div>
     </div>
 
@@ -820,12 +617,11 @@
             }
         }
 
-        /* --- XỬ LÝ ĐÓNG / MỞ POPUP THÔNG BÁO --- */
+        /* --- XỬ LÝ POPUP THÔNG BÁO --- */
         function dongThongBao() {
             document.getElementById('noticeModal').classList.remove('active');
         }
 
-        // Tự động bật Popup sau 0.5s khi mở trang
         window.addEventListener('DOMContentLoaded', () => {
             renderCategory('trasua', 'menu-trasua');
             renderCategory('traicay', 'menu-traicay');
