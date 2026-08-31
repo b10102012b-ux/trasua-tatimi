@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TaTiMi - Chicken & Milk Tea</title>
 
-    <!-- HỖ TRỢ HIỂN THỊ LOGO TRÊN MÀN HÌNH CHÍNH (IOS & ANDROID) -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="TaTiMi">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- LINK LOGO CHO APPLE TOUCH ICON & FAVICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg">
 
-    <!-- MANIFEST CHUẨN ĐỂ ANDROID VÀ IPHONE HIỂN THỊ LOGO KHI ĐƯA RA MÀN HÌNH CHÍNH -->
     <link rel="manifest" href='data:application/manifest+json,{"name":"TaTiMi Chicken & Milk Tea","short_name":"TaTiMi","start_url":".","display":"standalone","background_color":"#fdf5f5","theme_color":"#c88a58","icons":[{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"192x192","type":"image/jpeg"},{"src":"https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg","sizes":"512x512","type":"image/jpeg"}]}'>
 
     <style>
@@ -323,7 +320,7 @@
 
         .btn-submit:active { transform: scale(0.98); }
 
-        /* --- POPUP THÔNG BÁO DÙNG ẢNH TRỰC TIẾP --- */
+        /* --- POPUP THÔNG BÁO --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -389,11 +386,10 @@
 </head>
 <body>
 
-    <!-- MODAL POPUP HIỂN THỊ ẢNH THÔNG BÁO -->
     <div class="modal-overlay" id="noticeModal">
         <div class="notice-container">
             <button class="btn-close-modal" onclick="dongThongBao()">✕</button>
-            <img class="notice-img" src="https://i.ibb.co/d48NSsTZ/att-nj-Xqs-GWe7-Jq-b-T7-CPGYmh0mh-VRq-M9-CFk-YMQss-IWy-WYo.jpg" alt="Thông Báo - TaTiMi">
+            <img class="notice-img" src="https://i.ibb.co/j9VDSPtz/att-Q-C3-CO2-Pn-Oh-Ys-Mz-Au5r-Qy1-DJm-RKc-NN3dio-Bomkgqw.jpg" alt="Thông Báo - TaTiMi">
         </div>
     </div>
 
@@ -617,7 +613,7 @@
             }
         }
 
-        /* --- XỬ LÝ POPUP THÔNG BÁO --- */
+        /* --- XỬ LÝ POPUP THÔNG BÁO TỰ ĐỘNG TẮT SAU HẾT NGÀY 3/9 --- */
         function dongThongBao() {
             document.getElementById('noticeModal').classList.remove('active');
         }
@@ -628,9 +624,17 @@
             renderCategory('latte', 'menu-latte');
             renderCategory('topping', 'menu-topping');
 
-            setTimeout(() => {
-                document.getElementById('noticeModal').classList.add('active');
-            }, 500);
+            // Thời gian hết hạn: 23:59:59 ngày 03/09
+            const currentYear = new Date().getFullYear();
+            const expireDate = new Date(currentYear, 8, 3, 23, 59, 59); // Tháng trong JS tính từ 0 (8 = Tháng 9)
+            const now = new Date();
+
+            // Nếu thời gian hiện tại vẫn trước 23:59:59 ngày 03/09 thì hiển thị Popup
+            if (now <= expireDate) {
+                setTimeout(() => {
+                    document.getElementById('noticeModal').classList.add('active');
+                }, 500);
+            }
         });
     </script>
 </body>
