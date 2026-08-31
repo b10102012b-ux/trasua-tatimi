@@ -493,7 +493,7 @@
             </div>
         </div>
 
-        <!-- KHỐI THÔNG TIN CHUYỂN KHOẢN VÀ MÃ QR TỰ ĐỘNG CỘNG TIỀN + GHI CHÚ -->
+        <!-- KHỐI THÔNG TIN CHUYỂN KHOẢN -->
         <div class="led-box card-payment">
             <div class="card-title" style="background: #27ae60;">💳 THÔNG TIN CHUYỂN KHOẢN</div>
             <div class="bank-info">
@@ -511,12 +511,12 @@
                 </div>
                 <div class="bank-row">
                     <span>Nội dung CK:</span>
-                    <strong style="color: #0068ff;" id="bank-memo">TATIMI</strong>
+                    <strong style="color: #0068ff;" id="bank-memo">---</strong>
                 </div>
                 
                 <div class="qr-box">
-                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Mã VietQR tự động cập nhật số tiền & nội dung:</p>
-                    <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&addInfo=TATIMI&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Mã VietQR tự động cập nhật số tiền & thông tin khách:</p>
+                    <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
                 </div>
             </div>
         </div>
@@ -633,17 +633,14 @@
             updateQR(total);
         }
 
-        // TỰ ĐỘNG CẬP NHẬT MÃ QR THEO TỔNG TIỀN VÀ THÔNG TIN KHÁCH HÀNG
+        // CẬP NHẬT QR CHỈ DÙNG TÊN + SĐT CỦA KHÁCH HÀNG
         function updateQR(amount) {
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
             
-            let memo = "TATIMI";
-            if (name || phone) {
-                memo += ` ${name} ${phone}`.trim();
-            }
+            let memo = `${name} ${phone}`.trim();
 
-            document.getElementById('bank-memo').innerText = memo;
+            document.getElementById('bank-memo').innerText = memo || "---";
             const qrUrl = `https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent("VO THI NGOC TRAM")}`;
             document.getElementById('qr-code-img').src = qrUrl;
         }
