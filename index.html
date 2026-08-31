@@ -493,7 +493,7 @@
             </div>
         </div>
 
-        <!-- KHỐI THÔNG TIN CHUYỂN KHOẢN (ĐÃ CẬP NHẬT ẢNH QR MỚI) -->
+        <!-- KHỐI THÔNG TIN CHUYỂN KHOẢN VÀ MÃ QR TỰ ĐỘNG CỘNG TIỀN + GHI CHÚ -->
         <div class="led-box card-payment">
             <div class="card-title" style="background: #27ae60;">💳 THÔNG TIN CHUYỂN KHOẢN</div>
             <div class="bank-info">
@@ -503,16 +503,20 @@
                 </div>
                 <div class="bank-row">
                     <span>Số tài khoản:</span>
-                    <strong style="color: #d63031; font-size: 16px;">0886522140</strong>
+                    <strong style="color: #d63031; font-size: 16px;">9628062009</strong>
                 </div>
                 <div class="bank-row">
                     <span>Chủ tài khoản:</span>
-                    <strong>TATIMI CHICKEN & MILK TEA</strong>
+                    <strong>VÕ THỊ NGỌC TRÂM</strong>
+                </div>
+                <div class="bank-row">
+                    <span>Nội dung CK:</span>
+                    <strong style="color: #0068ff;" id="bank-memo">TATIMI</strong>
                 </div>
                 
                 <div class="qr-box">
-                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Mã QR Chuyển Khoản Ngân Hàng:</p>
-                    <img id="qr-code-img" class="qr-img" src="https://i.ibb.co/HLj7sPJk/att-dh7o4hkp3y7-Qa-72e0rs5-Pr-Iw653r-OVAOf-BNM-Lt-FMw.jpg" alt="Mã QR Chuyển Khoản TaTiMi">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Mã VietQR tự động cập nhật số tiền & nội dung:</p>
+                    <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&addInfo=TATIMI&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
                 </div>
             </div>
         </div>
@@ -607,6 +611,7 @@
                 cartDiv.className = 'cart-empty';
                 cartDiv.innerHTML = 'Chưa chọn món nào';
                 totalDiv.innerText = '0 VNĐ';
+                updateQR(0);
                 return;
             }
 
@@ -625,6 +630,22 @@
 
             cartDiv.innerHTML = html;
             totalDiv.innerText = `${total.toLocaleString()} VNĐ`;
+            updateQR(total);
+        }
+
+        // TỰ ĐỘNG CẬP NHẬT MÃ QR THEO TỔNG TIỀN VÀ THÔNG TIN KHÁCH HÀNG
+        function updateQR(amount) {
+            const name = document.getElementById('cus-name').value.trim();
+            const phone = document.getElementById('cus-phone').value.trim();
+            
+            let memo = "TATIMI";
+            if (name || phone) {
+                memo += ` ${name} ${phone}`.trim();
+            }
+
+            document.getElementById('bank-memo').innerText = memo;
+            const qrUrl = `https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent("VO THI NGOC TRAM")}`;
+            document.getElementById('qr-code-img').src = qrUrl;
         }
 
         function guiDon(nenTang) {
@@ -683,6 +704,10 @@
             renderCategory('traicay', 'menu-traicay');
             renderCategory('latte', 'menu-latte');
             renderCategory('topping', 'menu-topping');
+
+            // Lắng nghe sự kiện gõ thông tin của khách để cập nhật mã QR liên tục
+            document.getElementById('cus-name').addEventListener('input', () => updateCart());
+            document.getElementById('cus-phone').addEventListener('input', () => updateCart());
 
             const currentYear = new Date().getFullYear();
             const expireDate = new Date(currentYear, 8, 3, 23, 59, 59);
