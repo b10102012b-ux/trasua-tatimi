@@ -159,21 +159,19 @@
         .bank-info { background: #f8f9fa; border-radius: 12px; padding: 12px; font-size: 14px; line-height: 1.6; }
         .bank-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .bank-row strong { color: #2d3436; }
+        
         .qr-box { text-align: center; margin-top: 10px; }
         .qr-img { max-width: 260px; width: 100%; height: auto; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
 
-        .btn-download-qr {
-            width: 100%;
-            background: #0084ff;
-            color: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-top: 10px;
+        .screenshot-guide {
+            font-size: 12px;
+            color: #d63031;
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px dashed #ff7675;
+            margin-bottom: 8px;
         }
 
         .modal-overlay {
@@ -286,9 +284,9 @@
                 </div>
 
                 <div class="qr-box">
+                    <div class="screenshot-guide">📸 Bạn chụp màn hình mã QR bên dưới rồi mở App ngân hàng quét từ bộ sưu tập nhé!</div>
                     <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&addInfo=TATIMI%20DON%20HANG&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
                     
-                    <button class="btn-download-qr" onclick="taiAnhQRVaMoApp()">📥 TẢI MÃ QR VỀ MÁY</button>
                     <button class="btn-submit btn-bank-app" onclick="moAppNganHangKhach()">🏛️ MỞ ỨNG DỤNG NGÂN HÀNG</button>
                 </div>
             </div>
@@ -423,31 +421,6 @@
             
             const qrUrl = `https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent("VO THI NGOC TRAM")}`;
             document.getElementById('qr-code-img').src = qrUrl;
-        }
-
-        /* --- XỬ LÝ TẢI ẢNH QR VÀ MỞ APP NGÂN HÀNG --- */
-        async function taiAnhQRVaMoApp() {
-            if (currentTotal <= 0) {
-                alert("Vui lòng chọn món trước!");
-                return;
-            }
-
-            const imgUrl = document.getElementById('qr-code-img').src;
-
-            try {
-                const response = await fetch(imgUrl);
-                const blob = await response.blob();
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = `QR_TATIMI_${Date.now()}.png`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                alert("✅ Mã QR đã được tải về máy thành công!\n\nBây giờ bạn hãy chọn 'Mở ứng dụng ngân hàng' và chọn Quét ảnh từ thư viện nhé!");
-            } catch (error) {
-                window.open(imgUrl, '_blank');
-            }
         }
 
         function moAppNganHangKhach() {
