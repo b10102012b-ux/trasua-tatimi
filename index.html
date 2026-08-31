@@ -194,12 +194,12 @@
             width: 100%; color: white; border: none; padding: 14px; border-radius: 12px; 
             font-weight: 800; font-size: 15px; cursor: pointer; display: flex; align-items: center; 
             justify-content: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            text-decoration: none;
         }
 
         .btn-zalo { background: var(--zalo-blue); }
         .btn-mess { background: linear-gradient(135deg, #0084ff, #a832fe, #ff5252); }
         .btn-bank-app { background: linear-gradient(135deg, #10b981, #059669); margin-top: 10px; }
-        .btn-verify { background: linear-gradient(135deg, #e67e22, #d35400); }
         .btn-submit:active { transform: scale(0.98); }
 
         .bank-info { background: #f8f9fa; border-radius: 12px; padding: 12px; font-size: 14px; line-height: 1.6; }
@@ -210,29 +210,16 @@
         .qr-img { max-width: 260px; width: 100%; height: auto; border-radius: 12px; border: 2px solid #e2e8f0; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
 
         .screenshot-guide {
-            font-size: 12px;
-            color: #d63031;
+            font-size: 13px;
+            color: #d35400;
             font-weight: 700;
-            background: #fff5f5;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px dashed #ff7675;
-            margin-bottom: 8px;
-        }
-
-        .upload-box {
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 15px;
+            background: #fffbe6;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px dashed #ffe58f;
+            line-height: 1.5;
             text-align: center;
-            background: #fafafa;
-            margin-bottom: 10px;
-            cursor: pointer;
         }
-        .upload-box input[type="file"] { display: none; }
-        .upload-preview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 10px; display: none; }
-        .verify-status { font-size: 13px; font-weight: 700; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px; }
-        .status-pending { background: #fff9db; color: #f59f00; border: 1px solid #ffe066; }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -285,7 +272,7 @@
                 <div class="leaderboard-desc">
                     🔥 Mua hàng tích điểm hết tháng 9/2026:<br>
                     🥇 <b>Top 1:</b> Voucher 15% | 🥈 <b>Top 2:</b> Voucher 10% | 🥉 <b>Top 3:</b> Voucher 5%<br>
-                    <span style="color: #0068ff; font-size: 11px;">⚠️ Lưu ý: Điểm Top chỉ được tính khi bạn đã gửi ảnh đối chiếu đơn hàng và được Shop xác minh thành công!</span>
+                    <span style="color: #0068ff; font-size: 11px;">⚠️ Lưu ý: Điểm Top được tính khi gửi ảnh Bill/Đơn hàng trực tiếp qua Zalo/Messenger của Shop!</span>
                 </div>
 
                 <div class="leaderboard-list">
@@ -401,7 +388,7 @@
                 </div>
 
                 <div class="qr-box">
-                    <div class="screenshot-guide">📸 Bạn chụp màn hình mã QR bên dưới rồi mở App ngân hàng quét từ bộ sưu tập nhé!</div>
+                    <div class="screenshot-guide" style="font-size: 12px; margin-bottom: 8px;">📸 Chụp màn hình mã QR bên dưới rồi mở App ngân hàng quét từ bộ sưu tập nhé!</div>
                     <img id="qr-code-img" class="qr-img" src="https://img.vietqr.io/image/MB-9628062009-compact2.png?amount=0&addInfo=TATIMI%20DON%20HANG&accountName=VO%20THI%20NGOC%20TRAM" alt="Mã QR Chuyển Khoản TaTiMi">
                     
                     <button class="btn-submit btn-bank-app" onclick="moAppNganHangKhach()">🏛️ MỞ ỨNG DỤNG NGÂN HÀNG</button>
@@ -411,29 +398,19 @@
 
         <div class="led-box card-verify">
             <div class="card-title" style="background: linear-gradient(135deg, #e67e22, #d35400);">
-                <span>📸 BƯỚC 2: GỬI ẢNH ĐỐI CHIẾU ĐUA TOP</span>
+                <span>📸 BƯỚC 2: GỬI BILL TÍCH ĐIỂM ĐUA TOP</span>
             </div>
             
-            <div class="screenshot-guide" style="color: #d35400; background: #fffbe6; border-color: #ffe58f;">
-                Sau khi nhắn tin gửi đơn hoặc chuyển khoản thành công, hãy tải ảnh chụp màn hình lên đây để Shop xác minh tích điểm Đua Top nhé!
+            <div class="screenshot-guide">
+                📲 <b>HƯỚNG DẪN TÍCH ĐIỂM:</b><br><br>
+                Sau khi bấm gửi đơn hàng hoặc chuyển khoản thành công, quý khách vui lòng <b>gửi ảnh chụp màn hình đơn hàng / bill chuyển khoản</b> trực tiếp qua khung chat <b>Zalo</b> hoặc <b>Messenger</b> của Shop.<br><br>
+                ✨ TaTiMi sẽ xác nhận đơn và cộng điểm Đua Top cho quý khách ngay lập tức!
             </div>
 
-            <div class="input-group">
-                <input type="text" id="verify-name" placeholder="Họ và tên người đua top...">
+            <div class="btn-group" style="margin-top: 15px;">
+                <a href="https://zalo.me/0886522140" target="_blank" class="btn-submit btn-zalo">💬 GỬI BILL QUA ZALO SHOP</a>
+                <a href="https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr" target="_blank" class="btn-submit btn-mess">💬 GỬI BILL QUA MESSENGER</a>
             </div>
-            <div class="input-group">
-                <input type="tel" id="verify-phone" placeholder="Số điện thoại đã đặt hàng...">
-            </div>
-
-            <div class="upload-box" onclick="document.getElementById('bill-image').click()">
-                <div id="upload-text">📸 Chạm vào đây để chọn **Ảnh chụp màn hình Bill/Đơn hàng**</div>
-                <input type="file" id="bill-image" accept="image/*" onchange="hienThiAnhXemTruoc(event)">
-                <img id="image-preview" class="upload-preview" alt="Ảnh đối chiếu">
-            </div>
-
-            <button class="btn-submit btn-verify" onclick="guiAnhDoiChieu()">🚀 GỬI ẢNH ĐỐI CHIẾU TÍCH ĐIỂM</button>
-
-            <div id="verify-result"></div>
         </div>
 
     </div>
@@ -590,9 +567,6 @@
                 return;
             }
 
-            document.getElementById('verify-name').value = name;
-            document.getElementById('verify-phone').value = phone;
-
             let chiTietMon = "";
             let total = 0;
             cart.forEach(item => {
@@ -621,52 +595,12 @@
 
         function xuLyMoUngDung(nenTang) {
             if (nenTang === 'zalo') {
-                alert("📋 Đã sao chép đơn hàng!\n\nZalo sẽ mở ngay bây giờ, bạn chỉ cần giữ vào ô chat và chọn DÁN (Paste) để gửi. Đừng quên chụp màn hình lại để tải lên đối chiếu Đua Top nhé!");
+                alert("📋 Đã sao chép đơn hàng!\n\nZalo sẽ mở ngay bây giờ, bạn chỉ cần giữ vào ô chat và chọn DÁN (Paste) để gửi. Nhớ gửi kèm ảnh Bill/Đơn hàng để shop cộng điểm Đua Top nhé!");
                 window.location.href = `https://zalo.me/${SDT_ZALO}`;
             } else if (nenTang === 'messenger') {
-                alert("📋 Đã sao chép đơn hàng!\n\nFacebook sẽ mở ngay bây giờ, bạn bấm Nhắn tin và chọn DÁN (Paste) để gửi. Đừng quên chụp màn hình lại để tải lên đối chiếu Đua Top nhé!");
+                alert("📋 Đã sao chép đơn hàng!\n\nFacebook sẽ mở ngay bây giờ, bạn bấm Nhắn tin và chọn DÁN (Paste) để gửi. Nhớ gửi kèm ảnh Bill/Đơn hàng để shop cộng điểm Đua Top nhé!");
                 window.location.href = FB_LINK;
             }
-        }
-
-        function hienThiAnhXemTruoc(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgPreview = document.getElementById('image-preview');
-                    imgPreview.src = e.target.result;
-                    imgPreview.style.display = 'block';
-                    document.getElementById('upload-text').style.display = 'none';
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function guiAnhDoiChieu() {
-            const name = document.getElementById('verify-name').value.trim();
-            const phone = document.getElementById('verify-phone').value.trim();
-            const fileInput = document.getElementById('bill-image');
-
-            if (!name || !phone) {
-                alert("Vui lòng nhập Tên và Số điện thoại đối chiếu!");
-                return;
-            }
-
-            if (!fileInput.files || fileInput.files.length === 0) {
-                alert("Vui lòng chọn hoặc chụp ảnh màn hình đơn hàng/bill chuyển khoản!");
-                return;
-            }
-
-            const resultDiv = document.getElementById('verify-result');
-            resultDiv.innerHTML = `
-                <div class="verify-status status-pending">
-                    ⏳ <b>ĐÃ TẢI ẢNH THÀNH CÔNG!</b><br>
-                    Cảm ơn <b>${name}</b> (${phone}). Shop đã ghi nhận ảnh đối chiếu và đang tiến hành xác minh để cộng điểm Đua Top cho bạn!
-                </div>
-            `;
-
-            alert("✅ Đã tải ảnh minh chứng thành công! Shop sẽ kiểm tra và cộng điểm vào Bảng Đua Top sớm nhất nhé.");
         }
 
         function dongThongBao() {
