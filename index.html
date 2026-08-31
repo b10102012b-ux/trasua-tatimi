@@ -282,7 +282,9 @@
         .admin-panel h4 { font-size: 14px; color: #d35400; margin-bottom: 8px; text-align: center; }
         .admin-row { display: flex; gap: 6px; margin-bottom: 6px; }
         .admin-row input { padding: 8px; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; }
-        .btn-save-admin { background: #27ae60; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 13px; }
+        .admin-actions { display: flex; gap: 6px; }
+        .btn-save-admin { background: #27ae60; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 2; font-size: 13px; }
+        .btn-reset-admin { background: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -327,7 +329,10 @@
                         <input type="text" id="adm-name" placeholder="Tên & SĐT khách..." style="flex: 2;">
                         <input type="number" id="adm-points" placeholder="Số tiền (VNĐ)" style="flex: 1.5;">
                     </div>
-                    <button class="btn-save-admin" onclick="luuDuaTopShop()">THÊM / CẬP NHẬT VÀ TỰ ĐỘNG XẾP HẠNG</button>
+                    <div class="admin-actions">
+                        <button class="btn-save-admin" onclick="luuDuaTopShop()">CẬP NHẬT</button>
+                        <button class="btn-reset-admin" onclick="xoaTatCaDuaTop()">🗑️ XÓA HẾT</button>
+                    </div>
                 </div>
 
                 <div class="leaderboard-list" id="leaderboard-container" style="margin-top: 10px;">
@@ -370,7 +375,7 @@
 
         <div class="led-box card-delivery">
             <div class="card-title" style="background: #a06437;">🚚 BƯỚC 1: GỬI ĐƠN HÀNG</div>
-            <div class="delivery-note">⚠️ Lưu ý: Quán chỉ nhận giao hàng từ 2 ly trở lên!</div>
+            <div class="delivery-note">⚠️ Lưu ý: Qu quán chỉ nhận giao hàng từ 2 ly trở lên!</div>
 
             <div class="input-group">
                 <input type="text" id="cus-name" placeholder="Tên khách hàng...">
@@ -503,7 +508,6 @@
             const badges = ["🥇 Top 1", "🥈 Top 2", "🥉 Top 3", "Top 4", "Top 5"];
             const classes = ["rank-1", "rank-2", "rank-3", "", ""];
 
-            // Sắp xếp tự động từ điểm cao xuống thấp
             leaderboardData.sort((a, b) => b.points - a.points);
 
             container.innerHTML = leaderboardData.map((item, idx) => {
@@ -541,16 +545,14 @@
                 return;
             }
 
-            // Kiểm tra xem khách đã có trong bảng chưa, nếu có rồi thì cộng dồn hoặc cập nhật
             const existingUser = leaderboardData.find(item => item.name.toLowerCase() === name.toLowerCase());
             if (existingUser) {
-                existingUser.points += points; // Cộng dồn nếu nhập lại tên cũ
+                existingUser.points += points;
             } else {
-                // Thay thế vị trí thấp nhất hoặc thêm mới
                 leaderboardData.push({ name: name, points: points });
                 leaderboardData.sort((a, b) => b.points - a.points);
                 if (leaderboardData.length > 5) {
-                    leaderboardData.pop(); // Giữ tối đa top 5
+                    leaderboardData.pop();
                 }
             }
             
@@ -561,6 +563,22 @@
             document.getElementById('adm-points').value = '';
             document.getElementById('adminPanel').classList.remove('active');
             alert("✅ Đã cập nhật và tự động sắp xếp bảng xếp hạng thành công!");
+        }
+
+        function xoaTatCaDuaTop() {
+            if (confirm("⚠️ Bạn có chắc chắn muốn xóa sạch bảng đua top để làm mới từ đầu không?")) {
+                leaderboardData = [
+                    { name: "Chưa có khách", points: 0 },
+                    { name: "Chưa có khách", points: 0 },
+                    { name: "Chưa có khách", points: 0 },
+                    { name: "Chưa có khách", points: 0 },
+                    { name: "Chưa có khách", points: 0 }
+                ];
+                localStorage.setItem('tatimi_leaderboard', JSON.stringify(leaderboardData));
+                renderLeaderboard();
+                document.getElementById('adminPanel').classList.remove('active');
+                alert("🗑️ Đã xóa sạch bảng đua top!");
+            }
         }
 
         function renderCategory(catKey, elementId) {
