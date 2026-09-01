@@ -375,7 +375,7 @@
 
         <div class="led-box card-delivery">
             <div class="card-title" style="background: #a06437;">🚚 BƯỚC 1: GỬI ĐƠN HÀNG</div>
-            <div class="delivery-note">⚠️ Lưu ý: Qu quán chỉ nhận giao hàng từ 2 ly trở lên!</div>
+            <div class="delivery-note">⚠️ Lưu ý: Quán chỉ nhận giao hàng từ 2 ly trở lên!</div>
 
             <div class="input-group">
                 <input type="text" id="cus-name" placeholder="Tên khách hàng...">
@@ -385,6 +385,9 @@
             </div>
             <div class="input-group">
                 <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng..."></textarea>
+            </div>
+            <div class="input-group">
+                <textarea id="cus-note" rows="2" placeholder="Ghi chú cho quán (VD: 50% đường, nhiều đá, giao lúc 15h...)"></textarea>
             </div>
             
             <div class="btn-group">
@@ -435,7 +438,7 @@
 
             <div class="btn-group" style="margin-top: 15px;">
                 <a href="https://zalo.me/0886522140" target="_blank" class="btn-submit btn-zalo">💬 GỬI BILL QUA ZALO SHOP</a>
-                <a href="https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr" target="_blank" class="btn-submit btn-mess">💬 GỬI BILL QUA MESSENGER</a>
+                <a href="https://www.facebook.com/share/18N7bacRQ8/?mibextid=wwXIfr" target="_blank" class="btn-submit btn-mess">💬 GỬI BILL QUA MESSENGER</a>
             </div>
         </div>
 
@@ -443,7 +446,7 @@
 
     <script>
         const SDT_ZALO = "0886522140"; 
-        const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
+        const FB_LINK = "https://www.facebook.com/share/18N7bacRQ8/?mibextid=wwXIfr";
 
         const menuData = {
             trasua: [
@@ -678,6 +681,7 @@
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
             const address = document.getElementById('cus-address').value.trim();
+            const note = document.getElementById('cus-note').value.trim();
 
             if (cart.length === 0) {
                 alert("Vui lòng chọn ít nhất 1 món!");
@@ -696,12 +700,17 @@
                 chiTietMon += `- ${item.name} (${item.size}) x${item.qty}: ${itemTotal.toLocaleString()} VNĐ\n`;
             });
 
-            const tinNhan = `🧋 ĐƠN ĐẶT HÀNG THÁNG 9/2026 - TATIMI\n\n` +
+            let tinNhan = `🧋 ĐƠN ĐẶT HÀNG THÁNG 9/2026 - TATIMI\n\n` +
                             `👤 Khách hàng: ${name}\n` +
                             `📞 Số điện thoại: ${phone}\n` +
-                            `📍 Địa chỉ: ${address}\n\n` +
-                            `📋 Món chọn:\n${chiTietMon}\n` +
-                            `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
+                            `📍 Địa chỉ: ${address}\n`;
+
+            if (note) {
+                tinNhan += `📝 Ghi chú: ${note}\n`;
+            }
+
+            tinNhan += `\n📋 Món chọn:\n${chiTietMon}\n` +
+                       `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(tinNhan).then(() => {
@@ -760,3 +769,4 @@
     </script>
 </body>
 </html>
+
