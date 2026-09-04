@@ -253,23 +253,6 @@
             text-align: center;
         }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;
-            z-index: 9999; padding: 15px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .notice-container { position: relative; max-width: 420px; width: 100%; transform: scale(0.8); transition: transform 0.3s ease; }
-        .modal-overlay.active .notice-container { transform: scale(1); }
-        .notice-img { width: 100%; height: auto; border-radius: 20px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-
-        .btn-close-modal {
-            position: absolute; top: -12px; right: -12px; background: #ff4757; color: white;
-            border: 2px solid #fff; width: 32px; height: 32px; border-radius: 50%; font-weight: bold;
-            font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 10;
-        }
-
         .admin-panel {
             background: #fff8f0;
             border: 2px dashed #e67e22;
@@ -288,13 +271,6 @@
     </style>
 </head>
 <body>
-
-    <div class="modal-overlay" id="noticeModal">
-        <div class="notice-container">
-            <button class="btn-close-modal" onclick="dongThongBao()">✕</button>
-            <img class="notice-img" src="https://i.ibb.co/j9VDSPtz/att-Q-C3-CO2-Pn-Oh-Ys-Mz-Au5r-Qy1-DJm-RKc-NN3dio-Bomkgqw.jpg" alt="Thông Báo - TaTiMi">
-        </div>
-    </div>
 
     <div class="header">
         <img class="logo" src="https://i.ibb.co/SD2Lb1WS/IMG-8676.jpg" alt="TaTiMi Logo">
@@ -386,9 +362,6 @@
             <div class="input-group">
                 <textarea id="cus-address" rows="2" placeholder="Địa chỉ giao hàng..."></textarea>
             </div>
-            <div class="input-group">
-                <textarea id="cus-note" rows="2" placeholder="Ghi chú cho quán (VD: 50% đường, nhiều đá, giao lúc 15h...)"></textarea>
-            </div>
             
             <div class="btn-group">
                 <button class="btn-submit btn-zalo" onclick="guiDon('zalo')">📲 GỬI ĐƠN QUA ZALO</button>
@@ -438,7 +411,7 @@
 
             <div class="btn-group" style="margin-top: 15px;">
                 <a href="https://zalo.me/0886522140" target="_blank" class="btn-submit btn-zalo">💬 GỬI BILL QUA ZALO SHOP</a>
-                <a href="https://www.facebook.com/share/18N7bacRQ8/?mibextid=wwXIfr" target="_blank" class="btn-submit btn-mess">💬 GỬI BILL QUA MESSENGER</a>
+                <a href="https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr" target="_blank" class="btn-submit btn-mess">💬 GỬI BILL QUA MESSENGER</a>
             </div>
         </div>
 
@@ -446,7 +419,7 @@
 
     <script>
         const SDT_ZALO = "0886522140"; 
-        const FB_LINK = "https://www.facebook.com/share/18N7bacRQ8/?mibextid=wwXIfr";
+        const FB_LINK = "https://www.facebook.com/share/1JCwPN9GTr/?mibextid=wwXIfr";
 
         const menuData = {
             trasua: [
@@ -681,7 +654,6 @@
             const name = document.getElementById('cus-name').value.trim();
             const phone = document.getElementById('cus-phone').value.trim();
             const address = document.getElementById('cus-address').value.trim();
-            const note = document.getElementById('cus-note').value.trim();
 
             if (cart.length === 0) {
                 alert("Vui lòng chọn ít nhất 1 món!");
@@ -700,17 +672,12 @@
                 chiTietMon += `- ${item.name} (${item.size}) x${item.qty}: ${itemTotal.toLocaleString()} VNĐ\n`;
             });
 
-            let tinNhan = `🧋 ĐƠN ĐẶT HÀNG THÁNG 9/2026 - TATIMI\n\n` +
+            const tinNhan = `🧋 ĐƠN ĐẶT HÀNG THÁNG 9/2026 - TATIMI\n\n` +
                             `👤 Khách hàng: ${name}\n` +
                             `📞 Số điện thoại: ${phone}\n` +
-                            `📍 Địa chỉ: ${address}\n`;
-
-            if (note) {
-                tinNhan += `📝 Ghi chú: ${note}\n`;
-            }
-
-            tinNhan += `\n📋 Món chọn:\n${chiTietMon}\n` +
-                       `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
+                            `📍 Địa chỉ: ${address}\n\n` +
+                            `📋 Món chọn:\n${chiTietMon}\n` +
+                            `💰 TỔNG TIỀN: ${total.toLocaleString()} VNĐ`;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(tinNhan).then(() => {
@@ -731,10 +698,6 @@
                 alert("📋 Đã sao chép đơn hàng!\n\nFacebook sẽ mở ngay bây giờ, bạn bấm Nhắn tin và chọn DÁN (Paste) để gửi. Nhớ gửi kèm ảnh Bill/Đơn hàng để shop cộng điểm Đua Top nhé!");
                 window.location.href = FB_LINK;
             }
-        }
-
-        function dongThongBao() {
-            document.getElementById('noticeModal').classList.remove('active');
         }
 
         function kiemTraHanDuaTop() {
@@ -761,12 +724,7 @@
 
             document.getElementById('cus-name').addEventListener('input', () => updateCart());
             document.getElementById('cus-phone').addEventListener('input', () => updateCart());
-
-            setTimeout(() => {
-                document.getElementById('noticeModal').classList.add('active');
-            }, 500);
         });
     </script>
 </body>
 </html>
-
